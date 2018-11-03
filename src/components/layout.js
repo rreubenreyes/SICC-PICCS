@@ -16,11 +16,10 @@ export default class Layout extends Component {
     return (
       <StaticQuery
         query={graphql`
-          query {
-            hasura {
-              game_data {
-                id
-                keyword
+          query SiteTitleQuery {
+            site {
+              siteMetadata {
+                title
               }
             }
           }
