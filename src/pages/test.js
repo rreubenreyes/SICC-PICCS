@@ -24,7 +24,7 @@ class Test extends Component {
       }
     )
     const file = await res.json()
-    this.setState({ imageURL: file.secure_url }, this.getClarifaiData())
+    this.setState({ imageURL: file.secure_url }, this.getClarifaiData)
   }
 
   getClarifaiData = () => {
