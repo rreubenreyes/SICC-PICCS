@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import Logo from '../images/logo.svg'
 
 const Header = () => (
-  <div>
+  <div className="header">
     <Logo />
   </div>
 )

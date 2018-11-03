@@ -1,10 +1,11 @@
 @import 'pages/index';
 @import 'partials/_colors';
-
-html {
+@import 'components/header';
+i html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  font-size: 16px;
 }
 body {
   margin: 0;
