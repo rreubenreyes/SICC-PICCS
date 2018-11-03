@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
-import '../../style/layout.scss'
+import '../style/layout.scss'
 
 export default class Layout extends Component {
   static propTypes = {
