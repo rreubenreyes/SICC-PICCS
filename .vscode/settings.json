@@ -15,7 +15,7 @@
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 0,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "editor.formatOnPaste": true,
   "editor.formatOnType": false
