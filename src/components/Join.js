@@ -1,41 +1,38 @@
-import React, { Component } from 'react'
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import uuidv4 from 'uuid/v4'
-const gameId = uuidv4()
-const userId = uuidv4()
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import JoinButton from "./JoinButton";
 
-const JOIN_GAME = gql`
-  mutation {
-    insert_users(objects: [
-        {
-            id: "${userId}",
-            game: { 
-                data: { 
-                    status: "pending",
-                    id: "${gameId}",
-                    createdBy: "${userId}"
-                }
-            }
-        }
-    ]) {
-      affected_rows
-      returning {
-        id
-        game {
-          id
-        }
-      }
+import { Subscription } from "react-apollo";
+const GAMES_SUBSCRIPTION = gql`
+  subscription GamesSubscription {
+    games(where: { status: { _eq: "pending" } }) {
+      id
+      createdBy
+      status
     }
   }
-`
+`;
 
 export default class Join extends Component {
   render() {
+    const { history } = this.props;
     return (
-      <Mutation mutation={JOIN_GAME}>
-        {createGame => <button onClick={createGame}>Join</button>}
-      </Mutation>
-    )
+      <Subscription subscription={GAMES_SUBSCRIPTION}>
+        {({ data = {}, error, loading }) => {
+          let joinClass = "enabled";
+          console.log({ data, error, loading });
+          const { games = [] } = data;
+          if (loading || error || games.length === 0) {
+            joinClass = "disabled";
+          }
+          if (error) {
+            console.log(error);
+          }
+          return (
+            <JoinButton history={history} games={games} joinClass={joinClass} />
+          );
+        }}
+      </Subscription>
+    );
   }
 }

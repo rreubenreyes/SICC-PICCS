@@ -32,9 +32,19 @@ const CREATE_GAME = gql`
 
 class Create extends Component {
   render() {
+    const { history } = this.props;
     return (
       <Mutation mutation={CREATE_GAME}>
-        {createGame => <button onClick={createGame}>Create</button>}
+        {createGame => (
+          <button
+            onClick={() => {
+              createGame();
+              history.push("/lobby");
+            }}
+          >
+            Create
+          </button>
+        )}
       </Mutation>
     );
   }

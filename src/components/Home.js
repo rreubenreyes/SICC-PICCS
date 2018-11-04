@@ -1,20 +1,6 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
-import { Subscription } from "react-apollo";
-
 import Join from "./Join";
-import Lobby from "./Lobby";
 import Create from "./Create";
-
-const GAMES_SUBSCRIPTION = gql`
-  subscription GamesSubscription {
-    games(where: { status: { _eq: "pending" } }) {
-      id
-      createdBy
-      status
-    }
-  }
-`;
 
 export default class Home extends Component {
   componentDidUpdate = (prevProps, prevState) => {
@@ -22,43 +8,12 @@ export default class Home extends Component {
   };
 
   render() {
+    const { history } = this.props;
     return (
-      <Subscription subscription={GAMES_SUBSCRIPTION}>
-        {({ data, error, loading }) => {
-          if (loading) {
-            return null;
-          }
-          if (error) {
-            console.log(error);
-            return "Error loading games";
-          }
-          return (
-            <div>
-              <p>Games ({!data.games ? 0 : data.games.length})</p>
-              <ul>
-                {data.games &&
-                  data.games.map(g => {
-                    return (
-                      <li key={g.id}>
-                        <ul>
-                          <li>
-                            <strong>ID:</strong> {g.id}
-                          </li>
-
-                          <li>
-                            <strong>created by:</strong> {g.createdBy}
-                          </li>
-                        </ul>
-                        <br />
-                      </li>
-                    );
-                  })}
-              </ul>
-              <Create />
-            </div>
-          );
-        }}
-      </Subscription>
+      <div>
+        <Create history={history} />
+        <Join history={history} />
+      </div>
       // <Query query={GAMES_QUERY}>
       //   {({ subscribeToMore, ...result }) => {
       //     return (
