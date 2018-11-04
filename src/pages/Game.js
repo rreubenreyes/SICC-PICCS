@@ -23,27 +23,7 @@ class Game extends Component {
       );
     }
 
-    const GAMES_SUBSCRIPTION = gql`
-      subscription GamesSubscription {
-        games(where: { status: { _eq: "inProgress" }, id: {_eq: "${gameId}"} }) {
-          id
-          createdBy
-          status
-        }
-      }
-    `;
-    return (
-      <Subscription subscription={GAMES_SUBSCRIPTION}>
-        {({ data = {}, error, loading }) => {
-          console.log({ data, error, loading });
-          const { games = [] } = data;
-          if (games.length === 1) {
-            return <PlayGame userId={userId} gameId={gameId} />;
-          }
-          return <h3>You are waiting for the game to start</h3>;
-        }}
-      </Subscription>
-    );
+    return <PlayGame userId={userId} gameId={gameId} />;
   }
 }
 
