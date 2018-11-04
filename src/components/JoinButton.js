@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import uuidv4 from "uuid/v4";
+import "./JoinButton.css";
 const userId = uuidv4();
 
 class JoinButton extends Component {
