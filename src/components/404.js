@@ -1,7 +1,7 @@
 import React from 'react'
 
-const NotFound = () => {
+const NoMatch = () => {
   return <div>Oops! This page doesn't ex</div>
 }
 
-export default NotFound
+export default NoMatch
