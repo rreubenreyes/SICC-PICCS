@@ -10,7 +10,8 @@ export default class Home extends Component {
   render() {
     const { history } = this.props;
     return (
-      <div>
+      <div className="Home">
+        <h1>Welcome to SICC PICS</h1>
         <Create history={history} />
         <Join history={history} />
       </div>
