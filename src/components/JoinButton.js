@@ -29,7 +29,7 @@ class JoinButton extends Component {
           {createUser => {
             return (
               <button
-                className={joinClass}
+                className={`${joinClass} btn`} 
                 onClick={e => {
                   createUser();
                   history.push("/lobby", {
