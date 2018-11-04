@@ -11,10 +11,12 @@ class Start extends Component {
   }
   render() {
     const { userId, gameId } = this.props;
+
+    console.log({ userId, gameId });
     const START_GAME = gql`
         mutation update_games {
             update_games(
-                where: { createdBy: { _eq: "${userId}", id: {_eq: "${gameId}"} } },
+                where: { createdBy: { _eq: "${userId}"}, id: {_eq: "${gameId}"}, status: {_eq: "pending"} },
                 _set: { status: "inProgress" }
             ) {
                 affected_rows

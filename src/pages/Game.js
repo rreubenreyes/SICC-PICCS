@@ -11,6 +11,7 @@ class Game extends Component {
         state: { createdByUser, userId, gameId = null }
       }
     } = this.props;
+    console.log({ userId, gameId });
     if (createdByUser) {
       return <Start userId={userId} gameId={gameId} />;
     }
