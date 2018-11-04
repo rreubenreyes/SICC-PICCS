@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
 
 import GameInProgress from "./GameInProgress";
-import GameNotStarted from "./GameNotStarted";
+import GamePending from "./GamePending";
 import GameFinished from "./GameFinished";
 
 const GAMES_SUBSCRIPTION = gql`
@@ -19,7 +19,7 @@ const GAMES_SUBSCRIPTION = gql`
 
 class PlayGame extends Component {
   render() {
-    const { userId, gameId } = this.props;
+    const { userId, gameId, createdByUser } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {}, error, loading }) => {
@@ -28,10 +28,11 @@ class PlayGame extends Component {
           if (games.length === 1) {
             if (games[0].status === "pending") {
               return (
-                <GameNotStarted
+                <GamePending
                   userId={userId}
                   gameId={gameId}
                   gameDataId={games[0].game_data_id}
+                  createdByUser={createdByUser}
                 />
               );
             }

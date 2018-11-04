@@ -10,17 +10,10 @@ class Game extends Component {
         state: { createdByUser, userId, gameId = null }
       }
     } = this.props;
-    if (createdByUser) {
-      return (
-        <GameDataQuery>
-          {gameDataId => (
-            <Start userId={userId} gameId={gameId} gameDataId={gameDataId} />
-          )}
-        </GameDataQuery>
-      );
-    }
 
-    return <PlayGame userId={userId} gameId={gameId} />;
+    return (
+      <PlayGame userId={userId} gameId={gameId} createdByUser={createdByUser} />
+    );
   }
 }
 
