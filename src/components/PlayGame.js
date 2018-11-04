@@ -37,8 +37,8 @@ class PlayGame extends Component {
 
               return <h3>The game has finished! You lost!</h3>;
             }
-            return null;
           }
+          return null;
         }}
       </Subscription>
     );
