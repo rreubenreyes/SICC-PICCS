@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Start from "../components/Start";
 import PlayGame from "../components/PlayGame";
-import GameDataQuery from "../components/GameDataQuery";
 
 class Game extends Component {
   render() {
