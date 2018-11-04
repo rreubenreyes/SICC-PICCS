@@ -18,11 +18,13 @@ class NumberPlayers extends Component {
           const { users = [] } = data;
           if (!loading) {
             let players = "players";
+            let are = "are";
             if (users.length === 1) {
               players = "player";
+              are = "is";
             }
             return (
-              <h3>{`There are ${users.length} ${players} in the game`}</h3>
+              <h3>{`There ${are} ${users.length} ${players} in the game`}</h3>
             );
           }
           return null;
