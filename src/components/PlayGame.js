@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import gql from 'graphql-tag'
 import { Subscription } from 'react-apollo'
 
+import GameStarted from './GameStarted'
+import GameNotStarted from './GameNotStarted'
+
 const GAMES_SUBSCRIPTION = gql`
   subscription GamesSubscription($gameId: String!) {
     games(where: { status: { _eq: "inProgress" }, id: { _eq: $gameId } }) {
@@ -21,9 +24,9 @@ class PlayGame extends Component {
           console.log({ data, error, loading })
           const { games = [] } = data
           if (games.length === 1) {
-            return <h3>You are playing the game!</h3>
+            return <GameStarted />
           }
-          return <h3>You are waiting for the game to start</h3>
+          return <GameNotStarted />
         }}
       </Subscription>
     )
