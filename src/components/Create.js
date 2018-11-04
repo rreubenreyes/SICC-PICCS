@@ -39,7 +39,7 @@ class Create extends Component {
           <button
             onClick={() => {
               createGame();
-              history.push("/lobby");
+              history.push("/lobby", { createdByUser: true });
             }}
           >
             Create
