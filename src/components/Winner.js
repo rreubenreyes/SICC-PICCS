@@ -8,7 +8,6 @@ class Winner extends Component {
     const FINISH_GAME = gql`
       mutation
         update_games(
-
           where: {
             id: { _eq: "${gameId}" }
           }
