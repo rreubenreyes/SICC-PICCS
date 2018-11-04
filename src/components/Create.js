@@ -13,7 +13,8 @@ const CREATE_GAME = gql`
             game: { 
                 data: { 
                     status: "pending",
-                    id: "${gameId}"
+                    id: "${gameId}",
+                    createdBy: "${userId}"
                 }
             }
         }
