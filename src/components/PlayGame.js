@@ -17,7 +17,7 @@ const GAMES_SUBSCRIPTION = gql`
 
 class PlayGame extends Component {
   render() {
-    const { gameId } = this.props
+    const { userId, gameId } = this.props
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {}, error, loading }) => {
@@ -25,8 +25,13 @@ class PlayGame extends Component {
           const { games = [] } = data
           if (games.length === 1) {
             return <GameStarted />
+          } else if (games[0].status === 'pending') {
+            return <GameNotStarted />
+          } else if (games[0].status === 'finished') {
+            if (games[0].winner === userId) {
+              return <h3>The game has finished! You won!</h3>
+            }
           }
-          return <GameNotStarted />
         }}
       </Subscription>
     )
