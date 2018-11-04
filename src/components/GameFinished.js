@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const GameNotStarted = () => {
-  return <h3>Waiting for the game to start.</h3>
-}
+const GameFinished = () => {
+  return <h3>Waiting for the game to start.</h3>;
+};
 
-export default GameNotStarted
+export default GameFinished;
