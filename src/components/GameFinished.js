@@ -17,10 +17,10 @@ class GameFinished extends Component {
       history.push("/");
     }
     if (winner === userId) {
-      return <h3>Holy Cow you won!</h3>;
+      return <h3>Holy Cow you WON!</h3>;
     }
     if (winner) {
-      return <h3>Holy Cow you won!</h3>;
+      return <h3>Holy Cow you LOST!</h3>;
     }
     return null;
   }
