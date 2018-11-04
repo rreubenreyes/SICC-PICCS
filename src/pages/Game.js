@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Start from "../components/Start";
-import gql from "graphql-tag";
-import { Subscription } from "react-apollo";
 import PlayGame from "../components/PlayGame";
 import GameDataQuery from "../components/GameDataQuery";
 
@@ -12,7 +10,6 @@ class Game extends Component {
         state: { createdByUser, userId, gameId = null }
       }
     } = this.props;
-    console.log({ userId, gameId });
     if (createdByUser) {
       return (
         <GameDataQuery>
