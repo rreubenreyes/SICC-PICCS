@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Join from "./Join";
-import Create from "./Create";
+import Join from "../components/Join";
+import Create from "../components/Create";
 
 export default class Home extends Component {
   componentDidUpdate = (prevProps, prevState) => {

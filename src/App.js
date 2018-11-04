@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ClarifaiTest from './components/ClarifaiTest'
-import Home from './components/Home'
-import NoMatch from './components/404'
-import Game from './pages/Game'
-import './styles/style.scss'
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ClarifaiTest from "./components/ClarifaiTest";
+import Home from "./pages/Home";
+import NoMatch from "./components/404";
+import Game from "./pages/Game";
+import "./styles/style.scss";
 
 class App extends Component {
   render() {
@@ -17,8 +17,8 @@ class App extends Component {
           <Route component={NoMatch} />
         </Switch>
       </Router>
-    )
+    );
   }
 }
 
-export default App
+export default App;
