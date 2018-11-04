@@ -65,7 +65,10 @@ class GameInProgress extends Component {
 
   render() {
     const { pictureIsValid, isValidatingPicture } = this.state
-    const { userId, gameDataId } = this.props
+    const { userId, gameId, gameDataId } = this.props
+    if (pictureIsValid) {
+      return <Winner userId={userId} gameId={gameId} />
+    }
     return (
       <GetGameData gameDataId={gameDataId}>
         {gameData => {

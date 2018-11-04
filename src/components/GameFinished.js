@@ -9,10 +9,16 @@ class GameFinished extends Component {
     }
   }
   componentDidMount() {
-    window.setTimeout(this.setState({ shouldGoToHome: true }, 3000))
+    setTimeout(
+      function() {
+        this.setState({ shouldGoToHome: true })
+      }.bind(this),
+      3000
+    )
   }
   render() {
     const { winner = false, userId, history } = this.props
+    console.log({ winner, userId })
     if (this.state.shouldGoToHome) {
       history.push('/')
     }
