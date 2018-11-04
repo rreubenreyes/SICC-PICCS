@@ -1,7 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
-const GameFinished = () => {
-  return <h3>Waiting for the game to start.</h3>;
-};
+class GameFinished extends Component {
+  constructor() {
+    super();
+    this.state = {
+      shouldGoToHome: false
+    };
+  }
+  componentDidMount() {
+    window.setTimeout(this.setState({ shouldGoToHome: true }, 3000));
+  }
+  render() {
+    const { winner = false, userId, history } = this.props;
+    if (this.state.shouldGoToHome) {
+      history.push("/");
+    }
+    if (winner === userId) {
+      return <h3>Holy Cow you won!</h3>;
+    }
+    if (winner) {
+      return <h3>Holy Cow you won!</h3>;
+    }
+    return null;
+  }
+}
 
-export default GameFinished;
+export default withRouter(GameFinished);

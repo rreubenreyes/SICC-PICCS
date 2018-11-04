@@ -50,6 +50,7 @@ class PlayGame extends Component {
                   userId={userId}
                   gameId={gameId}
                   gameDataId={games[0].game_data_id}
+                  winner={games[0].winner}
                 />
               );
             }
