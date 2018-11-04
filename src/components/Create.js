@@ -37,7 +37,7 @@ class Create extends Component {
       <Mutation mutation={CREATE_GAME}>
         {createGame => (
           <button
-            className="btn"
+            className="btn btn--green"
             onClick={() => {
               createGame();
               history.push("/lobby", { createdByUser: true, userId, gameId });
