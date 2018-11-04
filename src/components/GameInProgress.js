@@ -1,95 +1,105 @@
-import React, { Component } from 'react'
-import Clarifai from 'clarifai'
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import React, { Component } from "react";
+import Clarifai from "clarifai";
+import Winner from "./Winner";
 
-import Challenge from './Challenge'
+import Challenge from "./Challenge";
+import GetGameData from "./GetGameData";
 
 const clarifaiApp = new Clarifai.App({
-  apiKey: '78812b999a7e4e76b5c5765356651516'
-})
+  apiKey: "78812b999a7e4e76b5c5765356651516"
+});
 
-class GameStarted extends Component {
+class GameInProgress extends Component {
   state = {
-    huntedItem: 'banana',
-    imageURL: '',
-    pictureIsValid: false,
+    imageURL: "",
+    pictureIsValid: null,
     isValidatingPicture: false,
     results: []
-  }
+  };
 
-  startHandleUpload = ({ target: { files } }) => {
+  startHandleUpload = ({ target: { files } }, { cfid, keyword }) => {
     this.setState({
       isValidatingPicture: true
-    })
-    this.handleUpload(files)
-  }
+    });
+    this.handleUpload(files, cfid, keyword);
+  };
 
-  handleUpload = async files => {
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload_preset', 'siccpiccs')
+  handleUpload = async (files, cfid, keyword) => {
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "siccpiccs");
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/brandonstinson/image/upload',
+      "https://api.cloudinary.com/v1_1/brandonstinson/image/upload",
       {
-        method: 'POST',
+        method: "POST",
         body: data
       }
-    )
-    const file = await res.json()
-    this.setState({ imageURL: file.secure_url }, this.getClarifaiData)
-  }
+    );
+    const file = await res.json();
+    this.setState({ imageURL: file.secure_url }, () =>
+      this.getClarifaiData(cfid, keyword)
+    );
+  };
 
-  getClarifaiData = () => {
-    const { imageURL } = this.state
+  getClarifaiData = (cfid, keyword) => {
+    const { imageURL } = this.state;
     clarifaiApp.models
-      .predict('bd367be194cf45149e75f01d59f77ba7', imageURL)
+      .predict(cfid, imageURL)
       .then(res =>
-        this.setState(
-          { isValidatingPicture: false, results: res },
-          this.checkSubmission
+        this.setState({ isValidatingPicture: false, results: res }, () =>
+          this.checkSubmission(keyword)
         )
-      )
-  }
+      );
+  };
 
-  checkSubmission = () => {
-    const { huntedItem, results } = this.state
-    const names = []
+  checkSubmission = keyword => {
+    const { results } = this.state;
+    const names = [];
     results.outputs[0].data.concepts
       .filter(concept => concept.value > 0.9)
-      .map(filtered => names.push(filtered.name))
+      .map(filtered => names.push(filtered.name));
     this.setState({
-      pictureIsValid: names.includes(huntedItem)
-    })
-  }
+      pictureIsValid: names.includes(keyword)
+    });
+  };
 
   render() {
-    const { huntedItem, pictureIsValid, isValidatingPicture } = this.state
-    const { gameId, userId, gameDataId } = this.props
-    const GET_GAME_DATA_FROM_ID = gql`
-      query {
-        game_data(where: {
-          id: { _eq: "${gameDataId}" }
-        } ) {
-          keyword
-        }
-      }
-    `
+    const { pictureIsValid, isValidatingPicture } = this.state;
+    const { userId, gameDataId } = this.props;
     return (
-      <>
-        <Challenge gameDataId={gameDataId} />
-        <input
-          type="file"
-          accept="image/*"
-          capture
-          id="provided-image"
-          onChange={this.startHandleUpload}
-        />
-        validating: {isValidatingPicture ? 'true' : 'false'}
-        {/* {pictureIsValid ? finishGame() : ''} */}
-      </>
-    )
+      <GetGameData gameDataId={gameDataId}>
+        {gameData => {
+          return (
+            <React.Fragment>
+              <Challenge display={gameData.display} />
+              <input
+                type="file"
+                accept="image/*"
+                capture
+                id="provided-image"
+                onChange={e =>
+                  this.startHandleUpload(e, {
+                    cfid: gameData.cfid,
+                    keyword: gameData.keyword
+                  })
+                }
+              />
+              {pictureIsValid && <Winner userId={userId} />}
+              {isValidatingPicture && <p>Validating...</p>}
+              {pictureIsValid === false &&
+                !isValidatingPicture && (
+                  <p>
+                    {`Sorry, this is not a picture of ${
+                      gameData.display
+                    }. Try again!`}
+                  </p>
+                )}
+            </React.Fragment>
+          );
+        }}
+      </GetGameData>
+    );
   }
 }
 
-export default GameStarted
+export default GameInProgress;
