@@ -13,7 +13,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
 
-const GQL_ENDPOINT = 'http://sicc-piccs-api.herokuapp.com/v1alpha1/graphql'
+const GQL_ENDPOINT = 'https://sicc-piccs-api.herokuapp.com/v1alpha1/graphql'
 
 const createWebsocketLink = uri => {
   const splitUri = uri.split('//')
