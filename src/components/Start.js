@@ -10,14 +10,14 @@ class Start extends Component {
     this.state = { started: false };
   }
   render() {
-    const { userId, gameId } = this.props;
+    const { userId, gameId, gameDataId } = this.props;
 
-    console.log({ userId, gameId });
+    console.log({ userId, gameId, gameDataId });
     const START_GAME = gql`
         mutation update_games {
             update_games(
                 where: { createdBy: { _eq: "${userId}"}, id: {_eq: "${gameId}"}, status: {_eq: "pending"} },
-                _set: { status: "inProgress" }
+                _set: { status: "inProgress", game_data_id: "${gameDataId}" }
             ) {
                 affected_rows
             }

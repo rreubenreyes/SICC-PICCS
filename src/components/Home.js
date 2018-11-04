@@ -14,26 +14,6 @@ export default class Home extends Component {
         <Create history={history} />
         <Join history={history} />
       </div>
-      // <Query query={GAMES_QUERY}>
-      //   {({ subscribeToMore, ...result }) => {
-      //     return (
-      //       <Lobby
-      //         {...result}
-      //         subscribeToNewGames={() => {
-      //           subscribeToMore({
-      //             document: GAMES_SUBSCRIPTION,
-      //             updateQuery: (prev, { subscriptionData: { data } }) => {
-      //               if (!data) return prev
-      //               const newFeedItem = data.games
-
-      //               return { ...prev, games: [...prev.games, newFeedItem] }
-      //             }
-      //           })
-      //         }}
-      //       />
-      //     )
-      //   }}
-      // </Query>
     );
   }
 }
