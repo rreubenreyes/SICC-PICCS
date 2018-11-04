@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PlayGame from "../components/PlayGame";
+import React, { Component } from 'react'
+import PlayGame from '../components/PlayGame'
 
 class Game extends Component {
   render() {
@@ -7,12 +7,12 @@ class Game extends Component {
       location: {
         state: { createdByUser, userId, gameId = null }
       }
-    } = this.props;
+    } = this.props
 
     return (
       <PlayGame userId={userId} gameId={gameId} createdByUser={createdByUser} />
-    );
+    )
   }
 }
 
-export default Game;
+export default Game

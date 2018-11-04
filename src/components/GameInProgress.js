@@ -1,89 +1,92 @@
-import React, { Component } from "react";
-import Clarifai from "clarifai";
-import Winner from "./Winner";
+import React, { Component } from 'react'
+import Clarifai from 'clarifai'
+import Winner from './Winner'
 
-import Challenge from "./Challenge";
-import GetGameData from "./GetGameData";
+import Challenge from './Challenge'
+import GetGameData from './GetGameData'
 
 const clarifaiApp = new Clarifai.App({
-  apiKey: "78812b999a7e4e76b5c5765356651516"
-});
+  apiKey: '78812b999a7e4e76b5c5765356651516'
+})
 
 class GameInProgress extends Component {
   state = {
-    imageURL: "",
+    imageURL: '',
     pictureIsValid: null,
     isValidatingPicture: false,
     results: []
-  };
+  }
 
   startHandleUpload = ({ target: { files } }, { cfid, keyword }) => {
     this.setState({
       isValidatingPicture: true
-    });
-    this.handleUpload(files, cfid, keyword);
-  };
+    })
+    this.handleUpload(files, cfid, keyword)
+  }
 
   handleUpload = async (files, cfid, keyword) => {
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "siccpiccs");
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'siccpiccs')
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/brandonstinson/image/upload",
+      'https://api.cloudinary.com/v1_1/brandonstinson/image/upload',
       {
-        method: "POST",
+        method: 'POST',
         body: data
       }
-    );
-    const file = await res.json();
+    )
+    const file = await res.json()
     this.setState({ imageURL: file.secure_url }, () =>
       this.getClarifaiData(cfid, keyword)
-    );
-  };
+    )
+  }
 
   getClarifaiData = (cfid, keyword) => {
-    const { imageURL } = this.state;
+    const { imageURL } = this.state
     clarifaiApp.models
       .predict(cfid, imageURL)
       .then(res =>
         this.setState({ isValidatingPicture: false, results: res }, () =>
           this.checkSubmission(keyword)
         )
-      );
-  };
+      )
+  }
 
   checkSubmission = keyword => {
-    const { results } = this.state;
-    const names = [];
+    const { results } = this.state
+    const names = []
     results.outputs[0].data.concepts
       .filter(concept => concept.value > 0.9)
-      .map(filtered => names.push(filtered.name));
+      .map(filtered => names.push(filtered.name))
     this.setState({
       pictureIsValid: names.includes(keyword)
-    });
-  };
+    })
+  }
 
   render() {
-    const { pictureIsValid, isValidatingPicture } = this.state;
-    const { userId, gameDataId } = this.props;
+    const { pictureIsValid, isValidatingPicture } = this.state
+    const { userId, gameDataId } = this.props
     return (
       <GetGameData gameDataId={gameDataId}>
         {gameData => {
           return (
-            <React.Fragment>
+            <>
               <Challenge display={gameData.display} />
-              <input
-                type="file"
-                accept="image/*"
-                capture
-                id="provided-image"
-                onChange={e =>
-                  this.startHandleUpload(e, {
-                    cfid: gameData.cfid,
-                    keyword: gameData.keyword
-                  })
-                }
-              />
+              <div className="clarifai-upload">
+                <input
+                  placeholder="Found one!"
+                  type="file"
+                  accept="image/*"
+                  capture
+                  id="provided-image"
+                  onChange={e =>
+                    this.startHandleUpload(e, {
+                      cfid: gameData.cfid,
+                      keyword: gameData.keyword
+                    })
+                  }
+                />
+              </div>
               {pictureIsValid && <Winner userId={userId} />}
               {isValidatingPicture && <p>Validating...</p>}
               {pictureIsValid === false &&
@@ -94,12 +97,12 @@ class GameInProgress extends Component {
                     }. Try again!`}
                   </p>
                 )}
-            </React.Fragment>
-          );
+            </>
+          )
         }}
       </GetGameData>
-    );
+    )
   }
 }
 
-export default GameInProgress;
+export default GameInProgress
