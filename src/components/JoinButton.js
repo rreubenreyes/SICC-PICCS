@@ -33,7 +33,11 @@ class JoinButton extends Component {
                 className={joinClass}
                 onClick={e => {
                   createUser();
-                  history.push("/lobby", { createdByUser: false });
+                  history.push("/lobby", {
+                    createdByUser: false,
+                    userId,
+                    gameId: randomGameId
+                  });
                 }}
               >
                 Join
