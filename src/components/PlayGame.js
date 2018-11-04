@@ -2,20 +2,21 @@ import React, { Component } from 'react'
 import gql from 'graphql-tag'
 import { Subscription } from 'react-apollo'
 
+const GAMES_SUBSCRIPTION = gql`
+  subscription GamesSubscription($gameId: String!) {
+    games(where: { status: { _eq: "inProgress" }, id: { _eq: $gameId } }) {
+      id
+      createdBy
+      status
+    }
+  }
+`
+
 class PlayGame extends Component {
   render() {
-    const { userId, gameId } = this.props
-    const GAMES_SUBSCRIPTION = gql`
-      subscription GamesSubscription {
-        games(where: { status: { _eq: "inProgress" }, id: {_eq: "${gameId}"} }) {
-          id
-          createdBy
-          status
-        }
-      }
-    `
+    const { gameId } = this.props
     return (
-      <Subscription subscription={GAMES_SUBSCRIPTION}>
+      <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {}, error, loading }) => {
           console.log({ data, error, loading })
           const { games = [] } = data
