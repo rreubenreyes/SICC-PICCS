@@ -13,6 +13,7 @@ const GAMES_SUBSCRIPTION = gql`
       createdBy
       status
       game_data_id
+      winner
     }
   }
 `;
@@ -46,6 +47,7 @@ class PlayGame extends Component {
               );
             }
             if (games[0].status === "finished") {
+              console.log(games[0]);
               return (
                 <GameFinished
                   userId={userId}
