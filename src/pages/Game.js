@@ -32,7 +32,7 @@ class Game extends Component {
           if (games.length === 1) {
             return <PlayGame userId={userId} gameId={gameId} />;
           }
-          return null;
+          return <h3>You are waiting for the game to start</h3>;
         }}
       </Subscription>
     );
