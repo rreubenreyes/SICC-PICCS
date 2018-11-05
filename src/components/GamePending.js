@@ -17,6 +17,8 @@ class GamePending extends Component {
           </GameDataQuery>
         )}
         <h3>Waiting for the game to start.</h3>
+        <br />
+        <div className="beach-ball" />
         <NumberPlayers gameId={gameId} />
       </>
     )

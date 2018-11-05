@@ -87,3 +87,26 @@ body {
     width: 70%;
   }
 }
+
+.beach-ball {
+  animation: spinny-spinny 1s infinite;
+  border-radius: 50%;
+  background: radial-gradient(
+    at 75%,
+    lighten($color-primary-dark, 30%),
+    darken($color-tertiary-light, 10%)
+  );
+  margin: 0 calc(50% - 2rem);
+  width: 2rem;
+  height: 2rem;
+}
+
+@keyframes spinny-spinny {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.game-finished {
+  font-size: 3rem;
+}

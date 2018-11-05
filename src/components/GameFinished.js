@@ -27,10 +27,10 @@ class GameFinished extends Component {
       })
     }
     if (winner === userId) {
-      return <h3>Holy Cow you WON!</h3>
+      return <h3 className="game-finished">Holy cow you WON!</h3>
     }
     if (winner) {
-      return <h3>Holy Cow you LOST!</h3>
+      return <h3 className="game-finished">Holy cow you LOST!</h3>
     }
     return null
   }
