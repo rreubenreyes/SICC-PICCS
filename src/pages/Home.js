@@ -13,6 +13,13 @@ export default class Home extends Component {
     const { history } = this.props
     return (
       <div className="home">
+        <p
+          style={{
+            padding: '0 1rem',
+            textAlign: 'center'
+          }}>
+          This app was developed in a small incubator hosted by Microsoft. 🥑 😉
+        </p>
         <Create history={history} />
         <Join history={history} />
       </div>

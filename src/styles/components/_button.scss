@@ -10,4 +10,9 @@ button {
 
   flex-basis: 75%;
   text-transform: uppercase;
+
+  &.disabled {
+    background-color: $color-grey-light-1;
+    color: #bbb;
+  }
 }

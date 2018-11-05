@@ -45,3 +45,45 @@ body {
   width: 100vw;
   overflow-x: hidden;
 }
+
+.loadingScreen {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(
+    $color-tertiary-dark,
+    darken($color-tertiary-dark, 10%)
+  );
+  transition: 0.33s cubic-bezier(0.56, -0.15, 0.81, 0.77);
+  z-index: 98;
+
+  img {
+    z-index: 99;
+    opacity: 1;
+  }
+
+  &.loaded {
+    transform: translateX(-100%);
+  }
+}
+
+.typewriter {
+  position: absolute;
+  text-align: center;
+  color: $color-white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.loading--logo {
+  visibility: hidden;
+  width: 200%;
+  transition: 0.5s cubic-bezier(0.56, -0.15, 0.81, 0.77);
+  &.show {
+    visibility: visible;
+    width: 70%;
+  }
+}
