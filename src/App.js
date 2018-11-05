@@ -61,7 +61,7 @@ class App extends Component {
           },
           logoClassName: 'show'
         })
-      }, 750)
+      }, 650)
     }
     return (
       <>

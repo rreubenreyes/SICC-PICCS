@@ -20,7 +20,11 @@ class GameFinished extends Component {
     const { winner = false, userId, history } = this.props
     console.log({ winner, userId })
     if (this.state.shouldGoToHome) {
-      history.push('/')
+      history.push('/', {
+        state: {
+          initialLoad: false
+        }
+      })
     }
     if (winner === userId) {
       return <h3>Holy Cow you WON!</h3>
