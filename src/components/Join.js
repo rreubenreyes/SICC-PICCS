@@ -20,7 +20,7 @@ export default class Join extends Component {
       <Subscription subscription={GAMES_SUBSCRIPTION}>
         {({ data = {}, error, loading }) => {
           let joinClass = 'enabled'
-          let value = 'Join a game'
+          let value = 'Join a random game'
           console.log({ data, error, loading })
           const { games = [] } = data
           if (loading || error || games.length === 0) {

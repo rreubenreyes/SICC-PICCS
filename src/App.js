@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import NoMatch from './components/404'
 import Game from './pages/Game'
 import Close from './pages/Close'
+import logo from './static/svgs/logo.svg'
 import './styles/style.scss'
 
 const LOADING_PHRASE = 'Welcome to'

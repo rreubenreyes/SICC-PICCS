@@ -6,7 +6,7 @@ import uuidv4 from 'uuid/v4'
 class JoinButton extends Component {
   render() {
     const userId = uuidv4()
-    const { joinClass, history, games } = this.props
+    const { joinClass, history, games, value } = this.props
     if (games.length > 0) {
       const randomGameId = getRandomGameId(games)
       const CREATE_USER = gql`
@@ -38,14 +38,14 @@ class JoinButton extends Component {
                     gameId: randomGameId
                   })
                 }}>
-                Join a game
+                {value}
               </button>
             )
           }}
         </Mutation>
       )
     }
-    return <button className={joinClass}>Join</button>
+    return <button className={joinClass}>{value}</button>
   }
 }
 
