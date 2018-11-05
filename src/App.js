@@ -6,7 +6,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import NoMatch from './components/404'
 import Game from './pages/Game'
-import logo from './static/svgs/logo.svg'
+import Close from './pages/Close'
 import './styles/style.scss'
 
 const LOADING_PHRASE = 'Welcome to'
@@ -79,6 +79,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/lobby" component={Game} />
               <Route exact path="/test" component={ClarifaiTest} />
+              <Route exact path="/closeAllGames" component={Close} />
               <Route component={NoMatch} />
             </Switch>
           </Router>
