@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { Subscription } from "react-apollo";
 
 class NumberPlayers extends Component {
   render() {
     const { gameId } = this.props;
-    const NUMBER_PLAYERS_QUERY = gql`
-        query {
+    const NUMBER_PLAYERS_SUBSCRIPTION = gql`
+        subscription {
           users(where: { gameId: { _eq: "${gameId}" } }) {
             id
           }
         }
       `;
     return (
-      <Query query={NUMBER_PLAYERS_QUERY}>
+      <Subscription subscription={NUMBER_PLAYERS_SUBSCRIPTION}>
         {({ loading, error, data = {} }) => {
           const { users = [] } = data;
           if (!loading) {
@@ -29,7 +29,7 @@ class NumberPlayers extends Component {
           }
           return null;
         }}
-      </Query>
+      </Subscription>
     );
   }
 }
