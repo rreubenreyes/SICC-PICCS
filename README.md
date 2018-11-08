@@ -1,4 +1,4 @@
-![sicc piccs logo](./src/static/svgs/sicc-piccs.svg)
+![sicc piccs logo](./src/static/svgs/logo.svg)
 
 Picture scavenger hunt game built for the mobile web. Join a game, take a photo of your hunted item, profit!
 
