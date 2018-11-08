@@ -41,14 +41,21 @@ export default class Home extends Component {
             <em>#JAMstackHackathon2018</em>
           </sub>
         </p>
-        {user.userId ? (
+        {user.userId && user.username ? (
           <div>
             <p>{`Hello, ${user.username}`}</p>
+            <button
+              onClick={() =>
+                this.setState({ user: { userId: user.userId, username: null } })
+              }
+            >
+              Edit
+            </button>
             <Create history={history} userId={user.userId} />
             <Join history={history} userId={user.userId} />
           </div>
         ) : (
-          <GetNewUser updateUser={this.updateUser} />
+          <GetNewUser updateUser={this.updateUser.bind(this)} user={user} />
         )}
       </div>
     );

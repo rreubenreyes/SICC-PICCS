@@ -12,14 +12,23 @@ class GetNewUser extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
+    const { user } = this.props;
+    let username = user.username;
+    let mode = "create";
+    if (!username) {
+      if (username === null) {
+        mode = "edit";
+      }
+      username = "";
+    }
     const userId = uuidv4();
-    this.setState({ userId });
+    this.setState({ userId, value: username, mode });
   }
   handleChange(e) {
     this.setState({ value: e.target.value });
   }
   render() {
-    const { value, userId } = this.state;
+    const { value, userId, mode } = this.state;
     const { updateUser } = this.props;
     const CREATE_USER = gql`
         mutation {
@@ -36,27 +45,49 @@ class GetNewUser extends Component {
             }
         }
     `;
+    const EDIT_USER = gql`
+        mutation {
+            update_users(
+                where: { id: {_eq: "${userId}"} },
+                _set: { username: "${value}" }
+            ) {
+            affected_rows
+            returning {
+                id
+            }
+            }
+        }
+        `;
     return (
-      <Mutation mutation={CREATE_USER}>
-        {createUser => (
-          <form
-            action=""
-            onSubmit={e => {
-              e.preventDefault();
-              createUser();
-              updateUser({ userId, username: value });
-            }}
-          >
-            <label htmlFor="username">Enter username:</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-            <input type="submit" value="Save" />
-          </form>
+      <Mutation mutation={EDIT_USER}>
+        {editUser => (
+          <Mutation mutation={CREATE_USER}>
+            {createUser => (
+              <form
+                action=""
+                onSubmit={e => {
+                  e.preventDefault();
+                  if (mode === "create") {
+                    createUser();
+                  }
+                  if (mode === "edit") {
+                    editUser();
+                  }
+                  updateUser({ userId, username: value });
+                }}
+              >
+                <label htmlFor="username">Enter username:</label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+                <input type="submit" value="Save" />
+              </form>
+            )}
+          </Mutation>
         )}
       </Mutation>
     );
