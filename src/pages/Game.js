@@ -8,7 +8,6 @@ class Game extends Component {
         state: { createdByUser, userId, gameId = null }
       }
     } = this.props
-
     return (
       <PlayGame userId={userId} gameId={gameId} createdByUser={createdByUser} />
     )

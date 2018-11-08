@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
-import uuidv4 from "uuid/v4";
+import React, { Component } from 'react'
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
+import uuidv4 from 'uuid/v4'
 
 class Create extends Component {
   render() {
-    const gameId = uuidv4();
-    const userId = uuidv4();
+    const gameId = uuidv4()
+    const { userId } = this.props
 
     /*
     *  Creates a user and a game. The game is createdBy the user,
@@ -15,46 +15,56 @@ class Create extends Component {
     */
 
     const CREATE_GAME = gql`
-  mutation {
-    insert_users(objects: [
-        {
-            id: "${userId}",
-            game: { 
-                data: { 
-                    status: "pending",
-                    id: "${gameId}",
-                    createdBy: "${userId}"
-                }
-            }
-        }
-    ]) {
-      affected_rows
-      returning {
-        id
-        game {
-          id
+      mutation {
+        insert_games(objects: [
+          {
+            id: "${gameId}",
+            status: "pending",
+            createdBy: "${userId}"
+          }
+        ]) {
+          affected_rows
+          returning {
+            id
+          }
         }
       }
+    `
+    const UPDATE_USER = gql`
+    mutation {
+        update_users(
+          where: { id: {_eq: "${userId}"} },
+          _set: { gameId: "${gameId}" }
+        ) {
+          affected_rows
+        }
     }
-  }
-`;
-    const { history } = this.props;
+  `
+    const { history } = this.props
     return (
-      <Mutation mutation={CREATE_GAME}>
-        {createGame => (
-          <button
-            className="button--home__create"
-            onClick={() => {
-              createGame();
-              history.push("/lobby", { createdByUser: true, userId, gameId });
-            }}
-          >
-            Create a game
-          </button>
+      <Mutation mutation={UPDATE_USER}>
+        {updateUser => (
+          <Mutation mutation={CREATE_GAME}>
+            {createGame => (
+              <button
+                className="button--home__create"
+                onClick={() => {
+                  createGame()
+                  updateUser()
+                  history.push('/lobby', {
+                    createdByUser: true,
+                    userId,
+                    gameId
+                  })
+                }}>
+                Create a game
+              </button>
+            )}
+          </Mutation>
         )}
       </Mutation>
-    );
+    )
   }
 }
 
-export default Create;
+export default Create
