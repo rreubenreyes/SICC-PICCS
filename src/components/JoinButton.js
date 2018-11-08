@@ -10,29 +10,22 @@ class JoinButton extends Component {
     if (games.length > 0) {
       const randomGameId = getRandomGameId(games);
       // Create a user and assign them to a random game
-      const CREATE_USER = gql`
+      const UPDATE_USER = gql`
         mutation {
-            insert_users(objects: [
-                {
-                    id: "${userId}",
-                    gameId: "${randomGameId}"
-                }
-            ]) {
-            affected_rows
-            returning {
-                id
-            }
-            }
+            update_users(
+                where: { id: {_eq: "${userId}"} },
+                _set: { gameId: "${randomGameId}" }
+            )
         }
         `;
       return (
-        <Mutation mutation={CREATE_USER}>
-          {createUser => {
+        <Mutation mutation={UPDATE_USER}>
+          {updateUser => {
             return (
               <button
                 className={`button--home__join ${joinClass} `}
                 onClick={e => {
-                  createUser();
+                  updateUser();
                   history.push("/lobby", {
                     createdByUser: false,
                     userId,
