@@ -5,13 +5,11 @@ class Game extends Component {
   render() {
     const {
       location: {
-        state: { createdByUser, userId, gameId = null }
+        state: { createdBy, userId, gameId = null }
       }
     } = this.props
 
-    return (
-      <PlayGame userId={userId} gameId={gameId} createdByUser={createdByUser} />
-    )
+    return <PlayGame userId={userId} gameId={gameId} createdBy={createdBy} />
   }
 }
 
