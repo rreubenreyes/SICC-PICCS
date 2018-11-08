@@ -12,7 +12,6 @@ class Start extends Component {
   render() {
     const { userId, gameId, gameDataId } = this.props;
 
-    console.log({ userId, gameId, gameDataId });
     const START_GAME = gql`
         mutation update_games {
             update_games(

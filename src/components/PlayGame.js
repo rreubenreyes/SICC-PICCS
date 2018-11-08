@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import gql from 'graphql-tag'
-import { Subscription } from 'react-apollo'
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Subscription } from "react-apollo";
 
-import GameInProgress from './GameInProgress'
-import GamePending from './GamePending'
-import GameFinished from './GameFinished'
-import FlexWrapper from '../components/FlexWrapper'
+import GameInProgress from "./GameInProgress";
+import GamePending from "./GamePending";
+import GameFinished from "./GameFinished";
+import FlexWrapper from "../components/FlexWrapper";
 
 const GAMES_SUBSCRIPTION = gql`
   subscription GamesSubscription($gameId: String!) {
@@ -17,18 +17,17 @@ const GAMES_SUBSCRIPTION = gql`
       winner
     }
   }
-`
+`;
 
 class PlayGame extends Component {
   render() {
-    const { userId, gameId, createdByUser } = this.props
+    const { userId, gameId, createdByUser } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {}, error, loading }) => {
-          console.log({ data, error, loading })
-          const { games = [] } = data
+          const { games = [] } = data;
           if (games.length === 1) {
-            if (games[0].status === 'pending') {
+            if (games[0].status === "pending") {
               return (
                 <FlexWrapper>
                   {() => (
@@ -40,9 +39,9 @@ class PlayGame extends Component {
                     />
                   )}
                 </FlexWrapper>
-              )
+              );
             }
-            if (games[0].status === 'inProgress') {
+            if (games[0].status === "inProgress") {
               return (
                 <FlexWrapper>
                   {() => (
@@ -53,10 +52,9 @@ class PlayGame extends Component {
                     />
                   )}
                 </FlexWrapper>
-              )
+              );
             }
-            if (games[0].status === 'finished') {
-              console.log(games[0])
+            if (games[0].status === "finished") {
               return (
                 <FlexWrapper>
                   {() => (
@@ -68,14 +66,14 @@ class PlayGame extends Component {
                     />
                   )}
                 </FlexWrapper>
-              )
+              );
             }
           }
-          return null
+          return null;
         }}
       </Subscription>
-    )
+    );
   }
 }
 
-export default PlayGame
+export default PlayGame;

@@ -3,10 +3,6 @@ import Join from "../components/Join";
 import Create from "../components/Create";
 
 export default class Home extends Component {
-  componentDidUpdate = (prevProps, prevState) => {
-    console.log("hello");
-  };
-
   render() {
     const { history } = this.props;
     return (
