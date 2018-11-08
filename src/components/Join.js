@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import JoinButton from "./JoinButton";
-
 import { Subscription } from "react-apollo";
+
 const GAMES_SUBSCRIPTION = gql`
   subscription GamesSubscription {
     games(where: { status: { _eq: "pending" } }) {
@@ -22,6 +22,7 @@ export default class Join extends Component {
           let joinClass = "enabled";
           let value = "Join a random game";
           const { games = [] } = data;
+          // Only allow user to join a game if there is one available
           if (loading || error || games.length === 0) {
             joinClass = "disabled";
             value = "No games available";

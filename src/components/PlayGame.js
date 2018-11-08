@@ -24,7 +24,7 @@ class PlayGame extends Component {
     const { userId, gameId, createdByUser } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
-        {({ data = {}, error, loading }) => {
+        {({ data = {} }) => {
           const { games = [] } = data;
           if (games.length === 1) {
             if (games[0].status === "pending") {
