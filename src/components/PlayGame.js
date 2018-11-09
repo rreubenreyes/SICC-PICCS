@@ -21,7 +21,13 @@ const GAMES_SUBSCRIPTION = gql`
 
 class PlayGame extends Component {
   render() {
-    const { userId, gameId, createdByUser } = this.props;
+    const {
+      userId,
+      gameId,
+      createdByUser,
+      isRandomGame,
+      privateKey
+    } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {} }) => {
@@ -36,6 +42,8 @@ class PlayGame extends Component {
                       gameId={gameId}
                       gameDataId={games[0].game_data_id}
                       createdByUser={createdByUser}
+                      isRandomGame={isRandomGame}
+                      privateKey={privateKey}
                     />
                   )}
                 </FlexWrapper>

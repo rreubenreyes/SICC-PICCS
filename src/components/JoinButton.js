@@ -6,15 +6,69 @@ import uuidv4 from "uuid/v4";
 class JoinButton extends Component {
   render() {
     const userId = uuidv4();
-    const { joinClass, history, games, value } = this.props;
-    if (games.length > 0) {
-      const randomGameId = getRandomGameId(games);
-      // Create a user and assign them to a random game
-      const UPDATE_USER = gql`
+    const {
+      joinClass,
+      history,
+      games,
+      value,
+      randomGame,
+      gameAvailable
+    } = this.props;
+    if (gameAvailable) {
+      if (randomGame) {
+        const randomGameId = getRandomGameId(games);
+        // Create a user and assign them to a random game
+        const UPDATE_USER = gql`
         mutation {
             update_users(
                 where: { id: {_eq: "${userId}"} },
                 _set: { gameId: "${randomGameId}" }
+            )
+        }
+        `;
+        return (
+          <Mutation mutation={UPDATE_USER}>
+            {updateUser => {
+              return (
+                <button
+                  className={`button--home__join ${joinClass} `}
+                  onClick={e => {
+                    updateUser();
+                    history.push("/lobby", {
+                      createdByUser: false,
+                      userId,
+                      gameId: randomGameId
+                    });
+                  }}
+                >
+                  {value}
+                </button>
+              );
+            }}
+          </Mutation>
+        );
+      }
+      const GET_PRIVATE_GAME = gql`
+        query GetPrivateGame($privateKey: String!) {
+          games(
+            where: {
+              privateKey: { _eq: $privateKey }
+              status: { _eq: "pending" }
+            }
+          ) {
+            id
+            createdBy
+            status
+            game_data_id
+            winner
+          }
+        }
+      `;
+      const UPDATE_USER = gql`
+        mutation {
+            update_users(
+                where: { id: {_eq: "${userId}"} },
+                _set: { gameId: "${privateGameId}" }
             )
         }
         `;

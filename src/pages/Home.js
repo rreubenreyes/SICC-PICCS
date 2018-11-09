@@ -51,8 +51,18 @@ export default class Home extends Component {
             >
               Edit
             </button>
-            <Create history={history} userId={user.userId} />
-            <Join history={history} userId={user.userId} />
+            <Create
+              history={history}
+              isRandomGame={true}
+              userId={user.userId}
+            />
+            <Join history={history} isRandomGame={true} userId={user.userId} />
+            <Create
+              history={history}
+              isRandomGame={false}
+              userId={user.userId}
+            />
+            <Join history={history} isRandomGame={false} userId={user.userId} />
           </div>
         ) : (
           <GetNewUser updateUser={this.updateUser.bind(this)} user={user} />
