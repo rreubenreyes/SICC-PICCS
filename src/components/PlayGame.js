@@ -18,12 +18,9 @@ const GAMES_SUBSCRIPTION = gql`
       messages {
         id
         message
+        sent
       }
       winner
-      messages {
-        id
-        message
-      }
     }
   }
 `
@@ -71,11 +68,14 @@ class PlayGame extends Component {
           if (loading) {
             return 'Loading...'
           }
+
+          const { games } = data
+          const { messages } = games[0]
           return (
             <FlexWrapper>
               {() => (
                 <>
-                  <Chat gameId={gameId} />
+                  <Chat messages={messages} gameId={gameId} />
                   {this.getGameState(data)}
                 </>
               )}
