@@ -15,8 +15,8 @@ const GAMES_SUBSCRIPTION = gql`
 
 export default class Join extends Component {
   render() {
-    const { history, randomGame } = this.props;
-    const eq_neq = randomGame ? "_eq" : "_neq";
+    const { history, isRandomGame } = this.props;
+    const eq_neq = isRandomGame ? "_eq" : "_neq";
 
     const GAMES_SUBSCRIPTION = gql`
       subscription {
@@ -46,7 +46,7 @@ export default class Join extends Component {
               history={history}
               games={games}
               gameAvailable={gameAvailable}
-              randomGame={randomGame}
+              isRandomGame={isRandomGame}
             />
           );
         }}

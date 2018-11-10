@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import uuidv4 from "uuid/v4";
 
 class JoinButton extends Component {
+  constructor() {
+    super();
+    this.state = {
+      privateKeyValue: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ privateKeyValue: event.target.value });
+  }
   render() {
     const userId = uuidv4();
     const {
@@ -11,11 +21,11 @@ class JoinButton extends Component {
       history,
       games,
       value,
-      randomGame,
+      isRandomGame,
       gameAvailable
     } = this.props;
     if (gameAvailable) {
-      if (randomGame) {
+      if (isRandomGame) {
         const randomGameId = getRandomGameId(games);
         // Create a user and assign them to a random game
         const UPDATE_USER = gql`
@@ -48,6 +58,7 @@ class JoinButton extends Component {
           </Mutation>
         );
       }
+
       const GET_PRIVATE_GAME = gql`
         query GetPrivateGame($privateKey: String!) {
           games(
@@ -65,33 +76,49 @@ class JoinButton extends Component {
         }
       `;
       const UPDATE_USER = gql`
-        mutation {
+        mutation UpdateUser($privateGameId: String!) {
             update_users(
                 where: { id: {_eq: "${userId}"} },
-                _set: { gameId: "${privateGameId}" }
+                _set: { gameId: $privateGameId }
             )
         }
         `;
       return (
-        <Mutation mutation={UPDATE_USER}>
-          {updateUser => {
-            return (
-              <button
-                className={`button--home__join ${joinClass} `}
-                onClick={e => {
-                  updateUser();
-                  history.push("/lobby", {
-                    createdByUser: false,
-                    userId,
-                    gameId: randomGameId
-                  });
-                }}
-              >
-                {value}
-              </button>
-            );
-          }}
-        </Mutation>
+        <Query query={GET_PRIVATE_GAME}>
+          {(getPrivateGame, privateGames) => (
+            <Mutation mutation={UPDATE_USER}>
+              {(updateUser, user) => (
+                <React.Fragment>
+                  <input
+                    type="text"
+                    name="privateKey"
+                    id="privateKey"
+                    value={this.state.privateKeyValue}
+                    onChange={this.handleChange}
+                  />
+                  <button
+                    className={`button--home__join ${joinClass} `}
+                    onClick={e => {
+                      getPrivateGame({
+                        variables: { privateKey: this.state.privateKeyValue }
+                      });
+                      updateUser({
+                        variables: { gameId: privateGames.data[0].id }
+                      });
+                      history.push("/lobby", {
+                        createdByUser: false,
+                        userId,
+                        gameId: user.data[0].gameId
+                      });
+                    }}
+                  >
+                    {value}
+                  </button>
+                </React.Fragment>
+              )}
+            </Mutation>
+          )}
+        </Query>
       );
     }
     return <button className={joinClass}>{value}</button>;
