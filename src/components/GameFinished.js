@@ -13,7 +13,7 @@ class GameFinished extends Component {
       function() {
         this.setState({ shouldGoToHome: true });
       }.bind(this),
-      3000
+      5000
     );
   }
   render() {
