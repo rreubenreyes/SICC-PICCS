@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import JoinButton from "./JoinButton";
+import JoinRandom from "./JoinRandom";
+import JoinPrivate from "./JoinPrivate";
 import { Subscription } from "react-apollo";
 
-export default class Join extends Component {
+class JoinSubscription extends Component {
   render() {
     const { history, isRandomGame, userId } = this.props;
     const eq_neq = isRandomGame ? "_eq" : "_neq";
@@ -31,12 +32,21 @@ export default class Join extends Component {
           if (error) {
             console.log(error);
           }
+          if (isRandomGame) {
+            return (
+              <JoinRandom
+                history={history}
+                games={games}
+                gameAvailable={gameAvailable}
+                userId={userId}
+              />
+            );
+          }
           return (
-            <JoinButton
+            <JoinPrivate
               history={history}
               games={games}
               gameAvailable={gameAvailable}
-              isRandomGame={isRandomGame}
               userId={userId}
             />
           );
@@ -45,3 +55,4 @@ export default class Join extends Component {
     );
   }
 }
+export default JoinSubscription;
