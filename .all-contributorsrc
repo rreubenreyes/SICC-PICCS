@@ -1,0 +1,28 @@
+{
+  "projectName": "SICC-PICCS",
+  "projectOwner": "rreubenreyes",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "rreubenreyes",
+      "name": "Reuben Reyes",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/25578179?v=4",
+      "profile": "http://reubenreyes.com",
+      "contributions": [
+        "bug",
+        "code",
+        "design",
+        "doc",
+        "ideas",
+        "review",
+        "tool"
+      ]
+    }
+  ]
+}
