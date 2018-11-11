@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import uuidv4 from 'uuid/v4'
+import { getNewPrivateKey } from '../helpers/helpers'
 
-class Create extends Component {
+class CreateContainer extends Component {
   constructor() {
     super()
     this.state = {
@@ -12,11 +13,14 @@ class Create extends Component {
   }
   componentDidMount() {
     const gameId = uuidv4()
-    this.setState({ gameId })
+    const { isRandomGame } = this.props
+    const privateKey = isRandomGame ? null : getNewPrivateKey()
+    this.setState({ gameId, privateKey })
   }
   render() {
-    const { gameId } = this.state
-    const { userId } = this.props
+    const { gameId, privateKey } = this.state
+    const { userId, isRandomGame, history } = this.props
+    const text = isRandomGame ? 'Create a random game' : 'Create a private game'
 
     /*
     *  Creates a user and a game. The game is createdBy the user,
@@ -30,27 +34,25 @@ class Create extends Component {
           {
             id: "${gameId}",
             status: "pending",
-            createdBy: "${userId}"
+            createdBy: "${userId}",
+            privateKey: "${privateKey}"
           }
         ]) {
           affected_rows
-          returning {
-            id
-          }
         }
       }
     `
+
     const UPDATE_USER = gql`
-mutation {
-      update_users(
-        where: { id: {_eq: "${userId}"} },
-        _set: { gameId: "${gameId}" }
-      ) {
+      mutation {
+        update_users(
+          where: { id: {_eq: "${userId}"} },
+          _set: { gameId: "${gameId}" }
+        ) {
           affected_rows
+        }
       }
-  }
-`
-    const { history } = this.props
+    `
     return (
       <Mutation mutation={UPDATE_USER}>
         {updateUser => (
@@ -63,11 +65,13 @@ mutation {
                   updateUser()
                   history.push('/lobby', {
                     createdByUser: true,
+                    isRandomGame,
+                    privateKey,
                     userId,
                     gameId
                   })
                 }}>
-                Create a game
+                {text}
               </button>
             )}
           </Mutation>
@@ -77,4 +81,4 @@ mutation {
   }
 }
 
-export default Create
+export default CreateContainer

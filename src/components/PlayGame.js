@@ -31,50 +31,64 @@ const GAMES_SUBSCRIPTION = gql`
 
 class PlayGame extends Component {
   getGameState = ({ games = [] }) => {
-    const { userId, gameId, createdByUser } = this.props
+    const {
+      userId,
+      gameId,
+      createdByUser,
+      isRandomGame,
+      privateKey
+    } = this.props
     if (games.length === 1) {
-      if (games[0].status === 'pending') {
+      const currentGame = games[0]
+      if (currentGame.status === 'pending') {
         return (
           <GamePending
             userId={userId}
             gameId={gameId}
-            gameDataId={games[0].game_data_id}
+            gameDataId={currentGame.game_data_id}
             createdByUser={createdByUser}
+            isRandomGame={isRandomGame}
+            privateKey={privateKey}
           />
         )
       }
-      if (games[0].status === 'inProgress') {
+      if (currentGame.status === 'inProgress') {
         return (
-          <GameInProgress
-            userId={userId}
-            gameId={gameId}
-            gameDataId={games[0].game_data_id}
-          />
+          <FlexWrapper>
+            {() => (
+              <GameInProgress
+                userId={userId}
+                gameId={gameId}
+                gameDataId={currentGame.game_data_id}
+              />
+            )}
+          </FlexWrapper>
         )
       }
-      if (games[0].status === 'finished') {
+      if (currentGame.status === 'finished') {
         return (
-          <GameFinished
-            userId={userId}
-            gameId={gameId}
-            gameDataId={games[0].game_data_id}
-            winner={games[0].winner}
-          />
+          <FlexWrapper>
+            {() => (
+              <GameFinished
+                userId={userId}
+                gameId={gameId}
+                gameDataId={currentGame.game_data_id}
+                winner={currentGame.winner}
+              />
+            )}
+          </FlexWrapper>
         )
       }
     }
   }
   render() {
-    const { gameId, userId } = this.props
+    const { userId, gameId } = this.props
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
-        {({ data, error, loading }) => {
-          if (loading) {
-            return 'Loading...'
-          }
-
-          const { games } = data
-          const { messages } = games[0]
+        {({ data = {} }) => {
+          const { games = [] } = data
+          const { messages } = games[0] || { messages: [] }
+          messages.reverse()
           return (
             <FlexWrapper>
               {() => (

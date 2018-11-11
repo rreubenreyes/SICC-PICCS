@@ -61,7 +61,6 @@ export default class Chat extends Component {
         mutation={INSERT_MESSAGES}
         variables={{ messageId, gameId, userId, message }}>
         {(updateMessages, { data }) => {
-          console.log(data)
           return (
             <>
               <div
@@ -72,7 +71,7 @@ export default class Chat extends Component {
                   border: '1px solid black',
                   overflowY: 'scroll'
                 }}>
-                {messages.reverse().map(m => {
+                {messages.map(m => {
                   const {
                     sentBy: { username }
                   } = m
