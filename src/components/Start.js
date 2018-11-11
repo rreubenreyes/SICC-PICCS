@@ -5,10 +5,6 @@ import { Mutation } from "react-apollo";
 import PlayGame from "./PlayGame";
 
 class Start extends Component {
-  constructor() {
-    super();
-    this.state = { started: false };
-  }
   render() {
     const { userId, gameId, gameDataId } = this.props;
 
@@ -22,25 +18,19 @@ class Start extends Component {
             }
         }
       `;
-    if (!this.state.started) {
-      return (
-        <Mutation mutation={START_GAME}>
-          {startGame => {
-            return (
-              <button
-                onClick={() => {
-                  startGame();
-                  this.setState({ started: true });
-                }}
-              >
-                Start Game
-              </button>
-            );
-          }}
-        </Mutation>
-      );
-    }
-    return <PlayGame userId={userId} gameId={gameId} />;
+    return (
+      <Mutation mutation={START_GAME}>
+        {(startGame, { loading, data }) => {
+          if (loading) {
+            return <button className="disabled">Loading...</button>;
+          }
+          if (data) {
+            return <PlayGame userId={userId} gameId={gameId} />;
+          }
+          return <button onClick={startGame}>Start Game</button>;
+        }}
+      </Mutation>
+    );
   }
 }
 

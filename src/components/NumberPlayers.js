@@ -15,7 +15,7 @@ class NumberPlayers extends Component {
       `;
     return (
       <Subscription subscription={NUMBER_PLAYERS_SUBSCRIPTION}>
-        {({ loading, error, data = {} }) => {
+        {({ loading, data = {} }) => {
           const { users = [] } = data;
           if (!loading) {
             let players = "players";
