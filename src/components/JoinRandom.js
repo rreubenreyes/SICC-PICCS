@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { getRandomGameId } from "../helpers/helpers";
 
 class JoinButton extends Component {
   render() {
@@ -45,11 +46,6 @@ class JoinButton extends Component {
       <button className="disabled">No random games available to join</button>
     );
   }
-}
-
-function getRandomGameId(data) {
-  const index = Math.floor(Math.random() * data.length);
-  return data[index].id;
 }
 
 export default JoinButton;

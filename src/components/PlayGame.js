@@ -33,40 +33,41 @@ class PlayGame extends Component {
         {({ data = {} }) => {
           const { games = [] } = data;
           if (games.length === 1) {
-            if (games[0].status === "pending") {
+            const currentGame = games[0];
+            if (currentGame.status === "pending") {
               return (
                 <GamePending
                   userId={userId}
                   gameId={gameId}
-                  gameDataId={games[0].game_data_id}
+                  gameDataId={currentGame.game_data_id}
                   createdByUser={createdByUser}
                   isRandomGame={isRandomGame}
                   privateKey={privateKey}
                 />
               );
             }
-            if (games[0].status === "inProgress") {
+            if (currentGame.status === "inProgress") {
               return (
                 <FlexWrapper>
                   {() => (
                     <GameInProgress
                       userId={userId}
                       gameId={gameId}
-                      gameDataId={games[0].game_data_id}
+                      gameDataId={currentGame.game_data_id}
                     />
                   )}
                 </FlexWrapper>
               );
             }
-            if (games[0].status === "finished") {
+            if (currentGame.status === "finished") {
               return (
                 <FlexWrapper>
                   {() => (
                     <GameFinished
                       userId={userId}
                       gameId={gameId}
-                      gameDataId={games[0].game_data_id}
-                      winner={games[0].winner}
+                      gameDataId={currentGame.game_data_id}
+                      winner={currentGame.winner}
                     />
                   )}
                 </FlexWrapper>
