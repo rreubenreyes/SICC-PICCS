@@ -4,8 +4,18 @@ import gql from "graphql-tag";
 import uuidv4 from "uuid/v4";
 
 class Create extends Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      gameId: null
+    };
+  }
+  componentDidMount() {
     const gameId = uuidv4();
+    this.setState({ gameId });
+  }
+  render() {
+    const { gameId } = this.state;
     const { userId } = this.props;
 
     /*
@@ -35,7 +45,9 @@ mutation {
       update_users(
         where: { id: {_eq: "${userId}"} },
         _set: { gameId: "${gameId}" }
-      )
+      ) {
+          affected_rows
+      }
   }
 `;
     const { history } = this.props;
