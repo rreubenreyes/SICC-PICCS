@@ -14,7 +14,6 @@ export default class Home extends Component {
     if (userStr) {
       const user = JSON.parse(userStr);
       this.setState({ user });
-      console.log({ user });
     }
   }
   updateUser(user) {

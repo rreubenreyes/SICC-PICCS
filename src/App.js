@@ -31,11 +31,16 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    setTimeout(() => {
-      this.setState({
-        loadingStateClassName: "loaded"
-      });
-    }, 3000);
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      this.setState({ loadingStateClassName: "loaded" });
+    } else {
+      setTimeout(() => {
+        this.setState({
+          loadingStateClassName: "loaded"
+        });
+      }, 3000);
+    }
   };
 
   render() {
@@ -65,7 +70,7 @@ class App extends Component {
       }, 650);
     }
     return (
-      <>
+      <React.Fragment>
         <div className={`loadingScreen ${loadingStateClassName}`}>
           <div className="typewriter">{loadingPhrase.value}</div>
           <img
@@ -87,7 +92,7 @@ class App extends Component {
             </Switch>
           </Router>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }
