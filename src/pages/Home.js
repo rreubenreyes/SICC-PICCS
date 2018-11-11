@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Join from "../components/Join";
-import Create from "../components/Create";
 import GetNewUser from "../components/GetNewUser";
+import { Link } from "react-router-dom";
 
 export default class Home extends Component {
   constructor() {
@@ -23,7 +22,6 @@ export default class Home extends Component {
   }
   render() {
     const { user } = this.state;
-    const { history } = this.props;
     return (
       <div className="home">
         <p
@@ -42,17 +40,27 @@ export default class Home extends Component {
           </sub>
         </p>
         {user.userId && user.username ? (
-          <div>
+          <div style={{ textAlign: "center" }}>
             <p>{`Hello, ${user.username}`}</p>
             <button
               onClick={() =>
                 this.setState({ user: { userId: user.userId, username: null } })
               }
             >
-              Edit
+              Edit Name
             </button>
-            <Create history={history} userId={user.userId} />
-            <Join history={history} userId={user.userId} />
+            <Link
+              style={{ display: "block" }}
+              to={{ pathname: "/create", state: { user } }}
+            >
+              Create a game
+            </Link>
+            <Link
+              style={{ display: "block" }}
+              to={{ pathname: "/join", state: { user } }}
+            >
+              Join a game
+            </Link>
           </div>
         ) : (
           <GetNewUser updateUser={this.updateUser.bind(this)} user={user} />

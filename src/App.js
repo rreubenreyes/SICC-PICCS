@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import NoMatch from "./pages/404";
 import Game from "./pages/Game";
 import Close from "./pages/Close";
+import Create from "./pages/Create";
+import Join from "./pages/Join";
 import logo from "./static/svgs/logo.svg";
 import "./styles/style.scss";
 
@@ -29,11 +31,16 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    setTimeout(() => {
-      this.setState({
-        loadingStateClassName: "loaded"
-      });
-    }, 3000);
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      this.setState({ loadingStateClassName: "loaded" });
+    } else {
+      setTimeout(() => {
+        this.setState({
+          loadingStateClassName: "loaded"
+        });
+      }, 3000);
+    }
   };
 
   render() {
@@ -63,7 +70,7 @@ class App extends Component {
       }, 650);
     }
     return (
-      <>
+      <React.Fragment>
         <div className={`loadingScreen ${loadingStateClassName}`}>
           <div className="typewriter">{loadingPhrase.value}</div>
           <img
@@ -77,13 +84,15 @@ class App extends Component {
           <Router>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/create" component={Create} />
+              <Route exact path="/join" component={Join} />
               <Route exact path="/lobby" component={Game} />
               <Route exact path="/closeAllGames" component={Close} />
               <Route component={NoMatch} />
             </Switch>
           </Router>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 }

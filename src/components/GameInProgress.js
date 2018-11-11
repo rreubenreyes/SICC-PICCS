@@ -1,73 +1,56 @@
-import React, { Component } from 'react'
-import Clarifai from 'clarifai'
-import Winner from './Winner'
+import React, { Component } from "react";
+import Clarifai from "clarifai";
 
-import Challenge from './Challenge'
-import GetGameData from './GetGameData'
+import Challenge from "./Challenge";
+import GetGameData from "./GetGameData";
+import Winner from "./Winner";
+import { checkSubmission } from "../helpers/helpers";
 
 const clarifaiApp = new Clarifai.App({
-  apiKey: '78812b999a7e4e76b5c5765356651516'
-})
+  apiKey: "78812b999a7e4e76b5c5765356651516"
+});
 
 class GameInProgress extends Component {
   state = {
-    imageURL: '',
+    base64: null,
     pictureIsValid: null,
     isValidatingPicture: false,
     results: []
-  }
+  };
 
-  startHandleUpload = ({ target: { files } }, { cfid, keyword }) => {
+  startHandleUpload = ({ target: { files } }, { cfid, keyword, model }) => {
     this.setState({
       isValidatingPicture: true
-    })
-    this.handleUpload(files, cfid, keyword)
-  }
+    });
+    this.handleUpload(files, cfid, keyword, model);
+  };
 
-  handleUpload = async (files, cfid, keyword) => {
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload_preset', 'siccpiccs')
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/brandonstinson/image/upload',
-      {
-        method: 'POST',
-        body: data
-      }
-    )
-    const file = await res.json()
-    this.setState({ imageURL: file.secure_url }, () =>
-      this.getClarifaiData(cfid, keyword)
-    )
-  }
+  handleUpload = async (files, cfid, keyword, model) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.setState({ base64: reader.result.split(",")[1] }, () =>
+        this.getClarifaiData(cfid, keyword, model)
+      );
+    });
+    reader.readAsDataURL(files[0]);
+  };
 
-  getClarifaiData = (cfid, keyword) => {
-    const { imageURL } = this.state
-    clarifaiApp.models
-      .predict(cfid, imageURL)
-      .then(res =>
-        this.setState({ isValidatingPicture: false, results: res }, () =>
-          this.checkSubmission(keyword)
-        )
-      )
-  }
-
-  checkSubmission = keyword => {
-    const { results } = this.state
-    const names = []
-    results.outputs[0].data.concepts
-      .filter(concept => concept.value > 0.9)
-      .map(filtered => names.push(filtered.name))
-    this.setState({
-      pictureIsValid: names.includes(keyword)
-    })
-  }
+  getClarifaiData = (cfid, keyword, model) => {
+    const { base64 } = this.state;
+    clarifaiApp.models.predict(cfid, { base64 }).then(results =>
+      this.setState({
+        isValidatingPicture: false,
+        results,
+        pictureIsValid: checkSubmission({ keyword, results, model })
+      })
+    );
+  };
 
   render() {
-    const { pictureIsValid, isValidatingPicture } = this.state
-    const { userId, gameId, gameDataId } = this.props
+    const { pictureIsValid, isValidatingPicture } = this.state;
+    const { userId, gameId, gameDataId } = this.props;
     if (pictureIsValid) {
-      return <Winner userId={userId} gameId={gameId} />
+      return <Winner userId={userId} gameId={gameId} />;
     }
     return (
       <GetGameData gameDataId={gameDataId}>
@@ -85,7 +68,8 @@ class GameInProgress extends Component {
                   onChange={e =>
                     this.startHandleUpload(e, {
                       cfid: gameData.cfid,
-                      keyword: gameData.keyword
+                      keyword: gameData.keyword,
+                      model: gameData.model
                     })
                   }
                 />
@@ -94,18 +78,16 @@ class GameInProgress extends Component {
               {isValidatingPicture && <p>Validating...</p>}
               {pictureIsValid === false &&
                 !isValidatingPicture && (
-                  <p>
-                    {`Sorry, this is not a picture of ${
-                      gameData.display
-                    }. Try again!`}
-                  </p>
+                  <p>{`Sorry, this is not a picture of ${
+                    gameData.display
+                  }. Try again!`}</p>
                 )}
             </>
-          )
+          );
         }}
       </GetGameData>
-    )
+    );
   }
 }
 
-export default GameInProgress
+export default GameInProgress;

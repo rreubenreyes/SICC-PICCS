@@ -11,6 +11,7 @@ class GetGameData extends Component {
           display
           cfid
           keyword
+          model
         }
       }
     `;

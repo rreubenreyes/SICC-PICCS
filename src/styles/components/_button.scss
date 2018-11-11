@@ -1,6 +1,7 @@
-@import 'partials/index';
+@import "partials/index";
 
-button {
+button,
+a {
   background-color: $color-primary;
   color: $color-grey-light-1;
 
@@ -10,9 +11,12 @@ button {
 
   flex-basis: 75%;
   text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
 
   &.disabled {
     background-color: $color-grey-light-1;
     color: #bbb;
+    pointer-events: none;
   }
 }

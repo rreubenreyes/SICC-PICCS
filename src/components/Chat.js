@@ -47,6 +47,10 @@ export default class Chat extends Component {
     })
   }
 
+  componentDidMount = () => {
+    this.chatWindow = document.querySelector('#chat-window')
+  }
+
   render() {
     const { gameId, userId, messages } = this.props
     const { message, timezoneOffset } = this.state
@@ -57,14 +61,15 @@ export default class Chat extends Component {
         mutation={INSERT_MESSAGES}
         variables={{ messageId, gameId, userId, message }}>
         {(updateMessages, { data }) => {
-          console.log(data)
           return (
             <>
               <div
+                id="chat-window"
                 style={{
                   height: '40vh',
                   width: '100%',
-                  border: '1px solid black'
+                  border: '1px solid black',
+                  overflowY: 'scroll'
                 }}>
                 {messages.map(m => {
                   const {
