@@ -7,20 +7,27 @@ class JoinButton extends Component {
   constructor() {
     super();
     this.state = {
-      privateKeyValue: ""
+      privateKeyValue: "",
+      formSubmitted: false
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentDidMount() {
+    const userId = uuidv4();
+    this.setState({ userId });
   }
   handleChange(event) {
     this.setState({ privateKeyValue: event.target.value });
   }
+  handleSubmit() {
+    this.setState({ formSubmitted: true });
+  }
   render() {
-    const userId = uuidv4();
+    const { userId, formSubmitted, privateKeyValue } = this.state;
     const {
       joinClass,
       history,
       games,
-      value,
       isRandomGame,
       gameAvailable
     } = this.props;
@@ -51,7 +58,7 @@ class JoinButton extends Component {
                     });
                   }}
                 >
-                  {value}
+                  Join a random game
                 </button>
               );
             }}
@@ -84,44 +91,56 @@ class JoinButton extends Component {
         }
         `;
       return (
-        <Query query={GET_PRIVATE_GAME}>
-          {(getPrivateGame, privateGames) => (
-            <Mutation mutation={UPDATE_USER}>
-              {(updateUser, user) => (
-                <React.Fragment>
-                  <input
-                    type="text"
-                    name="privateKey"
-                    id="privateKey"
-                    value={this.state.privateKeyValue}
-                    onChange={this.handleChange}
-                  />
-                  <button
-                    className={`button--home__join ${joinClass} `}
-                    onClick={e => {
-                      getPrivateGame({
-                        variables: { privateKey: this.state.privateKeyValue }
-                      });
-                      updateUser({
-                        variables: { gameId: privateGames.data[0].id }
-                      });
-                      history.push("/lobby", {
-                        createdByUser: false,
-                        userId,
-                        gameId: user.data[0].gameId
-                      });
+        <React.Fragment>
+          <input
+            type="text"
+            name="privateKey"
+            id="privateKey"
+            value={this.state.privateKeyValue}
+            onChange={this.handleChange.bind(this)}
+          />
+          <button
+            className={`button--home__join ${joinClass} `}
+            onClick={this.handleSubmit.bind(this)}
+          >
+            Join a private game
+          </button>
+          {formSubmitted && (
+            <Query
+              query={GET_PRIVATE_GAME}
+              variables={{ privateKey: privateKeyValue }}
+            >
+              {(privateGames = {}) => {
+                return (
+                  <Mutation mutation={UPDATE_USER}>
+                    {(updateUser, user = {}) => {
+                      if (privateGames.data) {
+                        console.log(privateGames.data);
+                        updateUser({
+                          variables: { gameId: privateGames.data[0].id }
+                        });
+                        if (user.data) {
+                          history.push("/lobby", {
+                            createdByUser: false,
+                            userId,
+                            gameId: user.data[0].gameId
+                          });
+                        }
+                      }
+                      return null;
                     }}
-                  >
-                    {value}
-                  </button>
-                </React.Fragment>
-              )}
-            </Mutation>
+                  </Mutation>
+                );
+              }}
+            </Query>
           )}
-        </Query>
+        </React.Fragment>
       );
     }
-    return <button className={joinClass}>{value}</button>;
+    const text = isRandomGame
+      ? "No random games available to join"
+      : "No private games available to join";
+    return <button className={joinClass}>{text}</button>;
   }
 }
 

@@ -3,16 +3,6 @@ import gql from "graphql-tag";
 import JoinButton from "./JoinButton";
 import { Subscription } from "react-apollo";
 
-const GAMES_SUBSCRIPTION = gql`
-  subscription {
-    games(where: { status: { _eq: "pending" } }) {
-      id
-      createdBy
-      status
-    }
-  }
-`;
-
 export default class Join extends Component {
   render() {
     const { history, isRandomGame } = this.props;

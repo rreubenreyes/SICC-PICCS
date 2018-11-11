@@ -5,7 +5,7 @@ import Start from "./Start";
 
 class GamePending extends Component {
   render() {
-    const { gameId, createdByUser, userId } = this.props;
+    const { gameId, createdByUser, userId, privateKey } = this.props;
 
     return (
       <>
@@ -18,6 +18,7 @@ class GamePending extends Component {
         )}
         <h3>Waiting for the game to start.</h3>
         <br />
+        <p>{`Your private key is ${privateKey} `}</p>
         <div className="beach-ball" />
         <NumberPlayers gameId={gameId} />
       </>
