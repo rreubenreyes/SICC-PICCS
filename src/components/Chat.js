@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import gql from 'graphql-tag'
 import { Mutation } from 'react-apollo'
@@ -21,7 +21,7 @@ const INSERT_MESSAGES = gql`
   }
 `
 
-export default class Chat extends Component {
+export default class Chat extends PureComponent {
   static propTypes = {
     gameId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired
@@ -49,6 +49,10 @@ export default class Chat extends Component {
 
   componentDidMount = () => {
     this.chatWindow = document.querySelector('#chat-window')
+  }
+
+  componentDidUpdate = () => {
+    this.chatWindow.scrollTop = this.chatWindow.scrollHeight
   }
 
   render() {
