@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import gql from 'graphql-tag'
-import { Subscription } from 'react-apollo'
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import { Subscription } from 'react-apollo';
 
-import Chat from './Chat'
-import GameInProgress from './GameInProgress'
-import GamePending from './GamePending'
-import GameFinished from './GameFinished'
-import FlexWrapper from '../components/FlexWrapper'
+import Chat from './Chat';
+import GameInProgress from './GameInProgress';
+import GamePending from './GamePending';
+import GameFinished from './GameFinished';
+import FlexWrapper from '../components/FlexWrapper';
 
 const GAMES_SUBSCRIPTION = gql`
   subscription GamesSubscription($gameId: String!) {
@@ -15,7 +15,7 @@ const GAMES_SUBSCRIPTION = gql`
       createdBy
       status
       game_data_id
-      messages {
+      messages(order_by: { sent: desc }) {
         id
         message
         sent
@@ -27,7 +27,7 @@ const GAMES_SUBSCRIPTION = gql`
       winner
     }
   }
-`
+`;
 
 class PlayGame extends Component {
   getGameState = ({ games = [] }) => {
@@ -36,10 +36,10 @@ class PlayGame extends Component {
       gameId,
       createdByUser,
       isRandomGame,
-      privateKey
-    } = this.props
+      privateKey,
+    } = this.props;
     if (games.length === 1) {
-      const currentGame = games[0]
+      const currentGame = games[0];
       if (currentGame.status === 'pending') {
         return (
           <GamePending
@@ -50,7 +50,7 @@ class PlayGame extends Component {
             isRandomGame={isRandomGame}
             privateKey={privateKey}
           />
-        )
+        );
       }
       if (currentGame.status === 'inProgress') {
         return (
@@ -63,7 +63,7 @@ class PlayGame extends Component {
               />
             )}
           </FlexWrapper>
-        )
+        );
       }
       if (currentGame.status === 'finished') {
         return (
@@ -77,18 +77,18 @@ class PlayGame extends Component {
               />
             )}
           </FlexWrapper>
-        )
+        );
       }
     }
-  }
+  };
   render() {
-    const { userId, gameId } = this.props
+    const { userId, gameId } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {} }) => {
-          const { games = [] } = data
-          const { messages } = games[0] || { messages: [] }
-          messages.reverse()
+          const { games = [] } = data;
+          const { messages } = games[0] || { messages: [] };
+          messages.reverse();
           return (
             <FlexWrapper>
               {() => (
@@ -98,11 +98,11 @@ class PlayGame extends Component {
                 </>
               )}
             </FlexWrapper>
-          )
+          );
         }}
       </Subscription>
-    )
+    );
   }
 }
 
-export default PlayGame
+export default PlayGame;
