@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
-import uuidv4 from "uuid/v4";
 
 class JoinButton extends Component {
   constructor() {
@@ -12,10 +11,6 @@ class JoinButton extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  componentDidMount() {
-    const userId = uuidv4();
-    this.setState({ userId });
-  }
   handleChange(event) {
     this.setState({ privateKeyValue: event.target.value });
   }
@@ -23,13 +18,14 @@ class JoinButton extends Component {
     this.setState({ formSubmitted: true });
   }
   render() {
-    const { userId, formSubmitted, privateKeyValue } = this.state;
+    const { formSubmitted, privateKeyValue } = this.state;
     const {
       joinClass,
       history,
       games,
       isRandomGame,
-      gameAvailable
+      gameAvailable,
+      userId
     } = this.props;
     if (gameAvailable) {
       if (isRandomGame) {
@@ -87,7 +83,9 @@ class JoinButton extends Component {
             update_users(
                 where: { id: {_eq: "${userId}"} },
                 _set: { gameId: $privateGameId }
-            )
+            ) {
+                affected_rows
+            }
         }
         `;
       return (
@@ -114,16 +112,20 @@ class JoinButton extends Component {
                 return (
                   <Mutation mutation={UPDATE_USER}>
                     {(updateUser, user = {}) => {
-                      if (privateGames.data) {
-                        console.log(privateGames.data);
-                        updateUser({
-                          variables: { gameId: privateGames.data[0].id }
-                        });
+                      if (privateGames.data && privateGames.data.games) {
                         if (user.data) {
                           history.push("/lobby", {
                             createdByUser: false,
                             userId,
-                            gameId: user.data[0].gameId
+                            gameId: privateGames.data.games[0].id,
+                            privateKey: privateKeyValue
+                          });
+                        }
+                        if (!user.loading) {
+                          updateUser({
+                            variables: {
+                              privateGameId: privateGames.data.games[0].id
+                            }
                           });
                         }
                       }

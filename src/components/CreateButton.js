@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import uuidv4 from "uuid/v4";
 import { getNewPrivateKey } from "../helpers/helpers";
 
-class Create extends Component {
+class CreateContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -87,4 +87,4 @@ mutation {
   }
 }
 
-export default Create;
+export default CreateContainer;

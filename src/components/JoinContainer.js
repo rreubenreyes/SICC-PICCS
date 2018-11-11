@@ -5,7 +5,7 @@ import { Subscription } from "react-apollo";
 
 export default class Join extends Component {
   render() {
-    const { history, isRandomGame } = this.props;
+    const { history, isRandomGame, userId } = this.props;
     const eq_neq = isRandomGame ? "_eq" : "_neq";
 
     const GAMES_SUBSCRIPTION = gql`
@@ -37,6 +37,7 @@ export default class Join extends Component {
               games={games}
               gameAvailable={gameAvailable}
               isRandomGame={isRandomGame}
+              userId={userId}
             />
           );
         }}
