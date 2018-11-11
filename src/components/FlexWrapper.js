@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const FlexWrapper = ({ direction = 'row', wrapping = 'nowrap', children }) => {
-  return <div className={`flex`}>{children()}</div>
-}
+  return <div className={`flex`}>{children()}</div>;
+};
 
-export default FlexWrapper
+export default FlexWrapper;
