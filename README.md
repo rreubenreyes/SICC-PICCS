@@ -1,7 +1,8 @@
 ![sicc piccs logo](./src/static/svgs/logo.svg)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 Picture scavenger hunt game built for the mobile web. Join a game, take a photo of your hunted item, profit!
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ## Current Status
 
