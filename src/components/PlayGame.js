@@ -15,7 +15,7 @@ const GAMES_SUBSCRIPTION = gql`
       createdBy
       status
       game_data_id
-      messages(order_by: { sent: desc }) {
+      messages(order_by: { sent: asc }) {
         id
         message
         sent
@@ -88,7 +88,6 @@ class PlayGame extends Component {
         {({ data = {} }) => {
           const { games = [] } = data;
           const { messages } = games[0] || { messages: [] };
-          messages.reverse();
           return (
             <FlexWrapper>
               {() => (
