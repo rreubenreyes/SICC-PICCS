@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import gql from "graphql-tag";
-import { Subscription } from "react-apollo";
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import { Subscription } from 'react-apollo';
 
-import GameInProgress from "./GameInProgress";
-import GamePending from "./GamePending";
-import GameFinished from "./GameFinished";
-import FlexWrapper from "../components/FlexWrapper";
+import GameInProgress from './GameInProgress';
+import GamePending from './GamePending';
+import GameFinished from './GameFinished';
+import FlexWrapper from '../components/FlexWrapper';
 
 const GAMES_SUBSCRIPTION = gql`
   subscription GamesSubscription($gameId: String!) {
@@ -26,7 +26,7 @@ class PlayGame extends Component {
       gameId,
       createdByUser,
       isRandomGame,
-      privateKey
+      privateKey,
     } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
@@ -34,7 +34,7 @@ class PlayGame extends Component {
           const { games = [] } = data;
           if (games.length === 1) {
             const currentGame = games[0];
-            if (currentGame.status === "pending") {
+            if (currentGame.status === 'pending') {
               return (
                 <GamePending
                   userId={userId}
@@ -46,7 +46,7 @@ class PlayGame extends Component {
                 />
               );
             }
-            if (currentGame.status === "inProgress") {
+            if (currentGame.status === 'inProgress') {
               return (
                 <FlexWrapper>
                   {() => (
@@ -59,7 +59,7 @@ class PlayGame extends Component {
                 </FlexWrapper>
               );
             }
-            if (currentGame.status === "finished") {
+            if (currentGame.status === 'finished') {
               return (
                 <FlexWrapper>
                   {() => (

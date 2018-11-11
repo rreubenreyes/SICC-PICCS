@@ -1,0 +1,7 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "eqeqeq": "off",
+    "no-useless-escape": "off"
+  }
+}
