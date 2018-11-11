@@ -23,6 +23,22 @@
         "review",
         "tool"
       ]
+    },
+    {
+      "login": "austintackaberry",
+      "name": "Austin Tackaberry",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/29493001?v=4",
+      "profile": "https://austintackaberry.co",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "design",
+        "ideas",
+        "infra",
+        "review",
+        "tool"
+      ]
     }
   ]
 }
