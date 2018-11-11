@@ -16,7 +16,7 @@ export const checkSubmission = ({ keyword, results, model }) => {
   }
   if (model === "color") {
     return (
-      results.outputs[0].data.concepts.findIndex(
+      results.outputs[0].data.colors.findIndex(
         result =>
           result.w3c.name.toLowerCase() === keyword.toLowerCase() &&
           result.value > 0.8
