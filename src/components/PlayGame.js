@@ -19,6 +19,10 @@ const GAMES_SUBSCRIPTION = gql`
         id
         message
         sent
+        sentBy {
+          id
+          username
+        }
       }
       winner
     }
@@ -61,7 +65,7 @@ class PlayGame extends Component {
     }
   }
   render() {
-    const { gameId } = this.props
+    const { gameId, userId } = this.props
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data, error, loading }) => {
@@ -75,7 +79,7 @@ class PlayGame extends Component {
             <FlexWrapper>
               {() => (
                 <>
-                  <Chat messages={messages} gameId={gameId} />
+                  <Chat messages={messages} gameId={gameId} userId={userId} />
                   {this.getGameState(data)}
                 </>
               )}

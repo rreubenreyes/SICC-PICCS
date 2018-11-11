@@ -4,7 +4,7 @@ import JoinButton from "./JoinButton";
 import { Subscription } from "react-apollo";
 
 const GAMES_SUBSCRIPTION = gql`
-  subscription GamesSubscription {
+  subscription {
     games(where: { status: { _eq: "pending" } }) {
       id
       createdBy

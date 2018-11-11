@@ -10,6 +10,7 @@ class NumberPlayers extends Component {
           users(where: { gameId: { _eq: "${gameId}" } }) {
             id
           }
+
         }
       `
     return (
