@@ -65,12 +65,58 @@ class PlayGame extends Component {
     }
   }
   render() {
-    const { gameId, userId } = this.props
+    const {
+      userId,
+      gameId,
+      createdByUser,
+      isRandomGame,
+      privateKey
+    } = this.props
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
-        {({ data, error, loading }) => {
-          if (loading) {
-            return 'Loading...'
+        {({ data = {} }) => {
+          const { games = [] } = data
+          if (games.length === 1) {
+            const currentGame = games[0]
+            if (currentGame.status === 'pending') {
+              return (
+                <GamePending
+                  userId={userId}
+                  gameId={gameId}
+                  gameDataId={currentGame.game_data_id}
+                  createdByUser={createdByUser}
+                  isRandomGame={isRandomGame}
+                  privateKey={privateKey}
+                />
+              )
+            }
+            if (currentGame.status === 'inProgress') {
+              return (
+                <FlexWrapper>
+                  {() => (
+                    <GameInProgress
+                      userId={userId}
+                      gameId={gameId}
+                      gameDataId={currentGame.game_data_id}
+                    />
+                  )}
+                </FlexWrapper>
+              )
+            }
+            if (currentGame.status === 'finished') {
+              return (
+                <FlexWrapper>
+                  {() => (
+                    <GameFinished
+                      userId={userId}
+                      gameId={gameId}
+                      gameDataId={currentGame.game_data_id}
+                      winner={currentGame.winner}
+                    />
+                  )}
+                </FlexWrapper>
+              )
+            }
           }
 
           const { games } = data
