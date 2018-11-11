@@ -72,8 +72,12 @@ export default class Chat extends PureComponent {
                 id="chat-window"
                 style={{
                   height: '40vh',
+                  margin: 'auto .5rem',
                   width: '100%',
-                  border: '1px solid black',
+                  borderWidth: '1px 1px 0',
+                  borderColor: '#525252',
+                  borderStyle: 'solid',
+                  padding: '.25rem',
                   overflowY: 'scroll',
                 }}
               >
@@ -91,32 +95,52 @@ export default class Chat extends PureComponent {
                   const timestamp = [rawHours % 12 || 12, rawMinutes].join(':');
                   return (
                     <span key={m.id}>
-                      {`(${timestamp}${amOrPm}) ${username}: ${m.message}`}
+                      <span
+                        style={{ color: '#999' }}
+                      >{`(${timestamp}${amOrPm}) `}</span>
+                      <strong>{`${username}: `}</strong>
+                      {`${m.message}`}
                       <br />
                     </span>
                   );
                 })}
               </div>
-              <label htmlFor="chat">Chat</label>
-              <input
-                name="chat"
-                type="text"
-                value={message}
+              <div
                 style={{
-                  border: '1px solid black',
-                }}
-                onChange={e => this.handleChange(e)}
-              />
-              <button
-                type="submit"
-                value="Send"
-                onClick={() => {
-                  this.handleSubmit();
-                  updateMessages();
+                  display: 'flex',
+                  justifyContent: 'center',
+                  borderStyle: 'solid',
+                  borderWidth: '0px 1px 1px',
+                  borderColor: '#525252',
+                  margin: 'auto .5rem',
+                  width: '100%',
                 }}
               >
-                Send
-              </button>
+                <input
+                  name="chat"
+                  style={{ flexBasis: '90%', paddingLeft: '.5rem' }}
+                  type="text"
+                  placeholder="Enter your message... "
+                  value={message}
+                  onChange={e => this.handleChange(e)}
+                />
+                <button
+                  type="submit"
+                  value="Send"
+                  style={{
+                    fontSize: '.75rem',
+                    flexBasis: '10%',
+                    justifySelf: 'flex-end',
+                    padding: '.5rem 1rem',
+                  }}
+                  onClick={() => {
+                    this.handleSubmit();
+                    updateMessages();
+                  }}
+                >
+                  Send
+                </button>
+              </div>
             </>
           );
         }}

@@ -92,8 +92,8 @@ class PlayGame extends Component {
             <FlexWrapper>
               {() => (
                 <>
-                  <Chat messages={messages} gameId={gameId} userId={userId} />
                   {this.getGameState(data)}
+                  <Chat messages={messages} gameId={gameId} userId={userId} />
                 </>
               )}
             </FlexWrapper>
