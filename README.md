@@ -18,7 +18,11 @@ Our app was built for the [2018 freeCodeCamp JAMstack Hackathon](https://medium.
 
 ## Contributing
 
-We're accepting pull requests! Check out [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+We're accepting pull requests! If you want to add yourself to the list of contributors, please feel free!
+
+Just run `$ npm run contributors:add` at any point during your pull request and follow the prompts.
+
+We're working on our `CONTRIBUTING.md` file, which will contain more details about the code breakdown and what contributions you can make! 🙂
 
 ## Contributors
 
