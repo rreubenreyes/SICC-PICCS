@@ -5,10 +5,10 @@ import Start from "./Start";
 
 class GamePending extends Component {
   render() {
-    const { gameId, createdByUser, userId } = this.props;
+    const { gameId, createdByUser, userId, privateKey } = this.props;
 
     return (
-      <>
+      <div style={{ textAlign: "center" }}>
         {createdByUser && (
           <GameDataQuery>
             {gameDataId => (
@@ -17,10 +17,15 @@ class GamePending extends Component {
           </GameDataQuery>
         )}
         <h3>Waiting for the game to start.</h3>
-        <br />
+        {privateKey && (
+          <React.Fragment>
+            <h3>{`The private key for this game is:`}</h3>
+            <h1 style={{ fontSize: "56px" }}>{`${privateKey}`}</h1>
+          </React.Fragment>
+        )}
         <div className="beach-ball" />
         <NumberPlayers gameId={gameId} />
-      </>
+      </div>
     );
   }
 }

@@ -21,7 +21,13 @@ const GAMES_SUBSCRIPTION = gql`
 
 class PlayGame extends Component {
   render() {
-    const { userId, gameId, createdByUser } = this.props;
+    const {
+      userId,
+      gameId,
+      createdByUser,
+      isRandomGame,
+      privateKey
+    } = this.props;
     return (
       <Subscription subscription={GAMES_SUBSCRIPTION} variables={{ gameId }}>
         {({ data = {} }) => {
@@ -29,16 +35,14 @@ class PlayGame extends Component {
           if (games.length === 1) {
             if (games[0].status === "pending") {
               return (
-                <FlexWrapper>
-                  {() => (
-                    <GamePending
-                      userId={userId}
-                      gameId={gameId}
-                      gameDataId={games[0].game_data_id}
-                      createdByUser={createdByUser}
-                    />
-                  )}
-                </FlexWrapper>
+                <GamePending
+                  userId={userId}
+                  gameId={gameId}
+                  gameDataId={games[0].game_data_id}
+                  createdByUser={createdByUser}
+                  isRandomGame={isRandomGame}
+                  privateKey={privateKey}
+                />
               );
             }
             if (games[0].status === "inProgress") {
