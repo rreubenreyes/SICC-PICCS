@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import JoinContainer from "../components/JoinContainer";
+import JoinSubscription from "../components/JoinSubscription";
 
 class Join extends Component {
   render() {
@@ -11,12 +11,12 @@ class Join extends Component {
     } = this.props;
     return (
       <div style={{ textAlign: "center" }}>
-        <JoinContainer
+        <JoinSubscription
           history={history}
           isRandomGame={true}
           userId={user.userId}
         />
-        <JoinContainer
+        <JoinSubscription
           history={history}
           isRandomGame={false}
           userId={user.userId}
