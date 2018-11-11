@@ -35,18 +35,14 @@ class PlayGame extends Component {
           if (games.length === 1) {
             if (games[0].status === "pending") {
               return (
-                <FlexWrapper>
-                  {() => (
-                    <GamePending
-                      userId={userId}
-                      gameId={gameId}
-                      gameDataId={games[0].game_data_id}
-                      createdByUser={createdByUser}
-                      isRandomGame={isRandomGame}
-                      privateKey={privateKey}
-                    />
-                  )}
-                </FlexWrapper>
+                <GamePending
+                  userId={userId}
+                  gameId={gameId}
+                  gameDataId={games[0].game_data_id}
+                  createdByUser={createdByUser}
+                  isRandomGame={isRandomGame}
+                  privateKey={privateKey}
+                />
               );
             }
             if (games[0].status === "inProgress") {

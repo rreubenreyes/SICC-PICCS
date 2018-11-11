@@ -19,14 +19,8 @@ class JoinButton extends Component {
   }
   render() {
     const { formSubmitted, privateKeyValue } = this.state;
-    const {
-      joinClass,
-      history,
-      games,
-      isRandomGame,
-      gameAvailable,
-      userId
-    } = this.props;
+    const { history, games, isRandomGame, gameAvailable, userId } = this.props;
+    let { joinClass } = this.props;
     if (gameAvailable) {
       if (isRandomGame) {
         const randomGameId = getRandomGameId(games);
@@ -43,19 +37,21 @@ class JoinButton extends Component {
           <Mutation mutation={UPDATE_USER}>
             {updateUser => {
               return (
-                <button
-                  className={`button--home__join ${joinClass} `}
-                  onClick={e => {
-                    updateUser();
-                    history.push("/lobby", {
-                      createdByUser: false,
-                      userId,
-                      gameId: randomGameId
-                    });
-                  }}
-                >
-                  Join a random game
-                </button>
+                <div>
+                  <button
+                    className={`button--home__join ${joinClass} `}
+                    onClick={e => {
+                      updateUser();
+                      history.push("/lobby", {
+                        createdByUser: false,
+                        userId,
+                        gameId: randomGameId
+                      });
+                    }}
+                  >
+                    Join a random game
+                  </button>
+                </div>
               );
             }}
           </Mutation>
@@ -88,21 +84,32 @@ class JoinButton extends Component {
             }
         }
         `;
+      if (!privateKeyValue.length) {
+        joinClass = "disabled";
+      }
       return (
         <React.Fragment>
-          <input
-            type="text"
-            name="privateKey"
-            id="privateKey"
-            value={this.state.privateKeyValue}
-            onChange={this.handleChange.bind(this)}
-          />
-          <button
-            className={`button--home__join ${joinClass} `}
-            onClick={this.handleSubmit.bind(this)}
-          >
-            Join a private game
-          </button>
+          <div>
+            <label style={{ display: "block" }} htmlFor="privateKey">
+              Enter key to join private game:
+            </label>
+            <input
+              style={{ borderRadius: "2px", border: "1px solid gray" }}
+              type="text"
+              name="privateKey"
+              id="privateKey"
+              value={this.state.privateKeyValue}
+              onChange={this.handleChange.bind(this)}
+            />
+          </div>
+          <div>
+            <button
+              className={`button--home__join ${joinClass} `}
+              onClick={this.handleSubmit.bind(this)}
+            >
+              Join a private game
+            </button>
+          </div>
           {formSubmitted && (
             <Query
               query={GET_PRIVATE_GAME}
@@ -142,7 +149,7 @@ class JoinButton extends Component {
     const text = isRandomGame
       ? "No random games available to join"
       : "No private games available to join";
-    return <button className={joinClass}>{text}</button>;
+    return <button className="disabled">{text}</button>;
   }
 }
 

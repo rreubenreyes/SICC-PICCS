@@ -10,7 +10,7 @@ class Join extends Component {
       }
     } = this.props;
     return (
-      <div>
+      <div style={{ textAlign: "center" }}>
         <JoinContainer
           history={history}
           isRandomGame={true}

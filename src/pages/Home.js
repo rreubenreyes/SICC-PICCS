@@ -48,7 +48,7 @@ export default class Home extends Component {
                 this.setState({ user: { userId: user.userId, username: null } })
               }
             >
-              Edit
+              Edit Name
             </button>
             <Link
               style={{ display: "block" }}
