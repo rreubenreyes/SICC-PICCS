@@ -28,7 +28,7 @@ export const checkSubmission = ({ keyword, results, model }) => {
         .filter(result =>
           result.w3c.name.toLowerCase().includes(keyword.toLowerCase())
         )
-        .reduce((results, acc) => acc + results.value, 0) > 0.5
+        .reduce((results, acc) => acc + results.value, 0) > 0.2
     );
   }
 };
