@@ -18,13 +18,17 @@ export const checkSubmission = ({ keyword, results, model }) => {
       ) > -1
     );
   }
+  /*
+   * Makes sure to include all types of the keyword. For example, if the keyword is 'blue',
+   * we want to count both LightBlue and CornflowerBlue.
+   */
   if (model === 'color') {
     return (
-      results.outputs[0].data.colors.findIndex(
-        result =>
-          result.w3c.name.toLowerCase() === keyword.toLowerCase() &&
-          result.value > 0.5
-      ) > -1
+      results.outputs[0].data.colors
+        .filter(result =>
+          result.w3c.name.toLowerCase().includes(keyword.toLowerCase())
+        )
+        .reduce((results, acc) => acc + results.value, 0) > 0.5
     );
   }
 };
