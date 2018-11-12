@@ -23,12 +23,11 @@ export const checkSubmission = ({ keyword, results, model }) => {
    * we want to count both LightBlue and CornflowerBlue.
    */
   if (model === 'color') {
-    return (
-      results.outputs[0].data.colors
-        .filter(result =>
-          result.w3c.name.toLowerCase().includes(keyword.toLowerCase())
-        )
-        .reduce((results, acc) => acc + results.value, 0) > 0.2
-    );
+    const probability = results.outputs[0].data.colors
+      .filter(result =>
+        result.w3c.name.toLowerCase().includes(keyword.toLowerCase())
+      )
+      .reduce((acc, result) => acc + result.value, 0);
+    return probability > 0.2;
   }
 };
