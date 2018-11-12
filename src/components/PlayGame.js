@@ -24,7 +24,10 @@ const GAMES_SUBSCRIPTION = gql`
           username
         }
       }
-      winner
+      winnerRel {
+        username
+        id
+      }
     }
   }
 `;
@@ -40,6 +43,7 @@ class PlayGame extends Component {
     } = this.props;
     if (games.length === 1) {
       const currentGame = games[0];
+      console.log({ currentGame });
       if (currentGame.status === 'pending') {
         return (
           <GamePending
@@ -67,16 +71,12 @@ class PlayGame extends Component {
       }
       if (currentGame.status === 'finished') {
         return (
-          <FlexWrapper>
-            {() => (
-              <GameFinished
-                userId={userId}
-                gameId={gameId}
-                gameDataId={currentGame.game_data_id}
-                winner={currentGame.winner}
-              />
-            )}
-          </FlexWrapper>
+          <GameFinished
+            userId={userId}
+            gameId={gameId}
+            gameDataId={currentGame.game_data_id}
+            winnerRel={currentGame.winnerRel}
+          />
         );
       }
     }

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class GameFinished extends Component {
   constructor() {
     super();
     this.state = {
-      shouldGoToHome: false
+      shouldGoToHome: false,
     };
   }
   componentDidMount() {
@@ -17,19 +17,26 @@ class GameFinished extends Component {
     );
   }
   render() {
-    const { winner = false, userId, history } = this.props;
+    const { winnerRel = {}, userId, history } = this.props;
     if (this.state.shouldGoToHome) {
-      history.push("/", {
+      history.push('/', {
         state: {
-          initialLoad: false
-        }
+          initialLoad: false,
+        },
       });
     }
-    if (winner === userId) {
+    if (winnerRel.id === userId) {
       return <h3 className="game-finished">Holy cow you WON!</h3>;
     }
-    if (winner) {
-      return <h3 className="game-finished">Holy cow you LOST!</h3>;
+    if (winnerRel.id && winnerRel.username) {
+      return (
+        <h3 className="game-finished">{`Holy cow you LOST! ${
+          winnerRel.username
+        } won!`}</h3>
+      );
+    }
+    if (winnerRel.id) {
+      return <h3 className="game-finished">{`Holy cow you LOST!`}</h3>;
     }
     return null;
   }
