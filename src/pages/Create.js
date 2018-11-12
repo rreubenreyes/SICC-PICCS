@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import CreateButton from "../components/CreateButton";
+import React, { Component } from 'react';
+import CreateButton from '../components/CreateButton';
 
 class Create extends Component {
   render() {
     const {
       history,
       location: {
-        state: { user }
-      }
+        state: { user },
+      },
     } = this.props;
     return (
-      <div>
+      <div style={{ textAlign: 'center' }}>
         <CreateButton
           history={history}
           isRandomGame={true}

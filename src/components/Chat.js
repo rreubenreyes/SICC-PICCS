@@ -67,16 +67,19 @@ export default class Chat extends PureComponent {
       >
         {(updateMessages, { data }) => {
           return (
-            <>
+            <div
+              style={{
+                border: 'solid 1px #525252',
+                borderRadius: '3px',
+                width: '87%',
+              }}
+            >
               <div
                 id="chat-window"
                 style={{
-                  height: '40vh',
-                  margin: 'auto .5rem',
+                  height: '30vh',
                   width: '100%',
-                  borderWidth: '1px 1px 0',
-                  borderColor: '#525252',
-                  borderStyle: 'solid',
+                  boxSizing: 'border-box',
                   padding: '.25rem',
                   overflowY: 'scroll',
                 }}
@@ -108,17 +111,19 @@ export default class Chat extends PureComponent {
               <div
                 style={{
                   display: 'flex',
-                  justifyContent: 'center',
-                  borderStyle: 'solid',
-                  borderWidth: '0px 1px 1px',
-                  borderColor: '#525252',
-                  margin: 'auto .5rem',
+                  flexDirection: 'row',
                   width: '100%',
+                  borderTop: 'solid 1px gray',
                 }}
               >
                 <input
                   name="chat"
-                  style={{ flexBasis: '90%', paddingLeft: '.5rem' }}
+                  style={{
+                    paddingLeft: '.5rem',
+                    border: 'none',
+                    minWidth: '0',
+                    flex: '1 1 200px',
+                  }}
                   type="text"
                   placeholder="Enter your message... "
                   value={message}
@@ -129,7 +134,8 @@ export default class Chat extends PureComponent {
                   value="Send"
                   style={{
                     fontSize: '.75rem',
-                    flexBasis: '10%',
+                    flex: '0 0 30px',
+                    marginRight: '5px',
                     justifySelf: 'flex-end',
                     padding: '.5rem 1rem',
                   }}
@@ -141,7 +147,7 @@ export default class Chat extends PureComponent {
                   Send
                 </button>
               </div>
-            </>
+            </div>
           );
         }}
       </Mutation>

@@ -1,25 +1,25 @@
-import React, { Component } from "react";
-import uuidv4 from "uuid/v4";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import React, { Component } from 'react';
+import uuidv4 from 'uuid/v4';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
 
 class GetNewUser extends Component {
   constructor() {
     super();
     this.state = {
-      value: ""
+      value: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     const { user } = this.props;
     let username = user.username;
-    let mode = "create";
+    let mode = 'create';
     if (!username) {
       if (username === null) {
-        mode = "edit";
+        mode = 'edit';
       }
-      username = "";
+      username = '';
     }
     const userId = uuidv4();
     this.setState({ userId, value: username, mode });
@@ -63,29 +63,63 @@ class GetNewUser extends Component {
         {editUser => (
           <Mutation mutation={CREATE_USER}>
             {createUser => (
-              <form
-                action=""
-                onSubmit={e => {
-                  e.preventDefault();
-                  if (mode === "create") {
-                    createUser();
-                  }
-                  if (mode === "edit") {
-                    editUser();
-                  }
-                  updateUser({ userId, username: value });
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
                 }}
               >
-                <label htmlFor="username">Enter username:</label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                />
-                <input type="submit" value="Save" />
-              </form>
+                <form
+                  style={{ width: '85%', maxWidth: '500px' }}
+                  action=""
+                  onSubmit={e => {
+                    e.preventDefault();
+                    if (mode === 'create') {
+                      createUser();
+                    }
+                    if (mode === 'edit') {
+                      editUser();
+                    }
+                    updateUser({ userId, username: value });
+                  }}
+                >
+                  <label
+                    style={{ display: 'block', textAlign: 'left' }}
+                    htmlFor="username"
+                  >
+                    Enter username:
+                  </label>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <input
+                      type="text"
+                      name="username"
+                      id="username"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                      style={{
+                        border: 'solid 1px gray',
+                        borderRadius: '3px',
+                        fontSize: '20px',
+                        flex: '1 1 auto',
+                        display: 'block',
+                        minWidth: '0',
+                        padding: '5px',
+                      }}
+                    />
+                    <button style={{ flex: '0 0 20px' }} action="submit">
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
             )}
           </Mutation>
         )}

@@ -1,33 +1,49 @@
-import React, { Component } from "react";
-import GetNewUser from "../components/GetNewUser";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import GetNewUser from '../components/GetNewUser';
+import { Link } from 'react-router-dom';
 
 export default class Home extends Component {
   constructor() {
     super();
     this.state = {
-      user: {}
+      user: {},
     };
   }
   componentDidMount() {
-    const userStr = localStorage.getItem("user");
+    const userStr = localStorage.getItem('user');
     if (userStr) {
       const user = JSON.parse(userStr);
       this.setState({ user });
     }
   }
   updateUser(user) {
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
     this.setState({ user });
   }
   render() {
     const { user } = this.state;
     return (
       <div className="home">
+        {user.userId && user.username && (
+          <div>
+            <p style={{ textAlign: 'center', marginBottom: '0px' }}>{`Hello, ${
+              user.username
+            }!`}</p>
+            <button
+              onClick={() =>
+                this.setState({
+                  user: { userId: user.userId, username: null },
+                })
+              }
+            >
+              Edit Name
+            </button>
+          </div>
+        )}
         <p
           style={{
-            padding: "0 1rem",
-            textAlign: "center"
+            padding: '0 1rem',
+            textAlign: 'center',
           }}
         >
           This app was developed in a small incubator inside Microsoft.
@@ -40,24 +56,16 @@ export default class Home extends Component {
           </sub>
         </p>
         {user.userId && user.username ? (
-          <div style={{ textAlign: "center" }}>
-            <p>{`Hello, ${user.username}`}</p>
-            <button
-              onClick={() =>
-                this.setState({ user: { userId: user.userId, username: null } })
-              }
-            >
-              Edit Name
-            </button>
+          <div style={{ textAlign: 'center' }}>
             <Link
-              style={{ display: "block" }}
-              to={{ pathname: "/create", state: { user } }}
+              style={{ display: 'block' }}
+              to={{ pathname: '/create', state: { user } }}
             >
               Create a game
             </Link>
             <Link
-              style={{ display: "block" }}
-              to={{ pathname: "/join", state: { user } }}
+              style={{ display: 'block' }}
+              to={{ pathname: '/join', state: { user } }}
             >
               Join a game
             </Link>
