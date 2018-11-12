@@ -111,6 +111,7 @@ class GetNewUser extends Component {
                         flex: '1 1 auto',
                         display: 'block',
                         minWidth: '0',
+                        padding: '5px',
                       }}
                     />
                     <button style={{ flex: '0 0 20px' }} action="submit">

@@ -43,7 +43,6 @@ class PlayGame extends Component {
     } = this.props;
     if (games.length === 1) {
       const currentGame = games[0];
-      console.log({ currentGame });
       if (currentGame.status === 'pending') {
         return (
           <GamePending
