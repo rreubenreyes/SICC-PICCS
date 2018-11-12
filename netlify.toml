@@ -1,0 +1,6 @@
+[build]
+  functions = "./build/functions"
+  command = "npm run build:lambda"
+
+[build.environment]
+  HASURA_GRAPHQL_ACCESS_KEY = "cKkwPfe09WEqy26CHGm2"
