@@ -1,14 +1,14 @@
 export const getNewPrivateKey = () => {
-  let ans = []
+  let ans = [];
   for (let i = 0; i < 6; i++) {
-    ans.push(Math.floor(Math.random() * 10))
+    ans.push(Math.floor(Math.random() * 10));
   }
-  return ans.join('')
-}
+  return ans.join('');
+};
 export const getRandomGameId = data => {
-  const index = Math.floor(Math.random() * data.length)
-  return data[index].id
-}
+  const index = Math.floor(Math.random() * data.length);
+  return data[index].id;
+};
 
 export const checkSubmission = ({ keyword, results, model }) => {
   if (model === 'food' || model === 'general') {
@@ -16,15 +16,15 @@ export const checkSubmission = ({ keyword, results, model }) => {
       results.outputs[0].data.concepts.findIndex(
         result => result.value > 0.85 && result.name === keyword
       ) > -1
-    )
+    );
   }
   if (model === 'color') {
     return (
       results.outputs[0].data.colors.findIndex(
         result =>
           result.w3c.name.toLowerCase() === keyword.toLowerCase() &&
-          result.value > 0.8
+          result.value > 0.5
       ) > -1
-    )
+    );
   }
-}
+};
