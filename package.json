@@ -21,12 +21,13 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate"
+    "contributors:generate": "all-contributors generate",
+    "eject": "react-scripts eject",
+    "lint": "eslint src",
+    "test": "react-scripts test",
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
