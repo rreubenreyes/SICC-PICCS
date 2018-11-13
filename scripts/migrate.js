@@ -33,8 +33,12 @@ execSync(`hasura migrate create ${randomMigrationName}`);
 const migrationVersion = execSync('find migrations/*.up.sql').split(
   'migrations/'
 )[1];
-execSync(`cat public-schema.sql > migrations/${migrationVersion}.up.sql`);
-execSync(`cat metadata.yaml > migrations/${migrationVersion}.up.yaml`); // TODO
+execSync(
+  `cat public-schema.sql > migrations/${migrationVersion}_${randomMigrationName}.up.sql`
+);
+execSync(
+  `cat metadata.yaml > migrations/${migrationVersion}_${randomMigrationName}.up.yaml`
+); // TODO
 execSync(
   `rm -rf migrations/${migrationVersion}.down.sql migrations/${migrationVersion}.down.yaml`
 );
