@@ -13,12 +13,22 @@ import { split } from 'apollo-link';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { WebSocketLink } from 'apollo-link-ws';
 
+console.log(process.env.NODE_ENV);
+
 const GQL_ENDPOINT = 'https://sicc-piccs-api.herokuapp.com/v1alpha1/graphql';
+
+const accessKey = 'cKkwPfe09WEqy26CHGm2'; // TEMPORARY
+const HASURA_GRAPHQL_ACCESS_KEY = { 'X-Hasura-Access-Key': accessKey || '' };
 
 const createWebsocketLink = uri => {
   const splitUri = uri.split('//');
   const subscriptionClient = new SubscriptionClient(`wss://${splitUri[1]}`, {
     reconnect: true,
+    connectionParams: {
+      headers: {
+        ...HASURA_GRAPHQL_ACCESS_KEY,
+      },
+    },
   });
 
   return new WebSocketLink(subscriptionClient);
@@ -26,11 +36,10 @@ const createWebsocketLink = uri => {
 
 // set hasura access key
 const authLink = setContext((_, { headers }) => {
-  const accessKey = 'cKkwPfe09WEqy26CHGm2'; // TEMPORARY
   return {
     headers: {
       ...headers,
-      'X-Hasura-Access-Key': accessKey || '',
+      ...HASURA_GRAPHQL_ACCESS_KEY,
     },
   };
 });

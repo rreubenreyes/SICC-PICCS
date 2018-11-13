@@ -1,0 +1,64 @@
+- type: replace_metadata
+  args:
+    tables:
+      - table: games
+        object_relationships:
+          - using:
+              foreign_key_constraint_on: winner
+            name: winnerRel
+            comment: null
+        array_relationships:
+          - using:
+              foreign_key_constraint_on:
+                column: gameId
+                table: messages
+            name: messages
+            comment: null
+        insert_permissions: []
+        select_permissions: []
+        update_permissions: []
+        delete_permissions: []
+        event_triggers: []
+      - table: game_data
+        object_relationships: []
+        array_relationships: []
+        insert_permissions: []
+        select_permissions: []
+        update_permissions: []
+        delete_permissions: []
+        event_triggers: []
+      - table: users
+        object_relationships:
+          - using:
+              foreign_key_constraint_on: gameId
+            name: game
+            comment: null
+        array_relationships:
+          - using:
+              foreign_key_constraint_on:
+                column: userId
+                table: messages
+            name: messages
+            comment: null
+        insert_permissions: []
+        select_permissions: []
+        update_permissions: []
+        delete_permissions: []
+        event_triggers: []
+      - table: messages
+        object_relationships:
+          - using:
+              foreign_key_constraint_on: gameId
+            name: game
+            comment: null
+          - using:
+              foreign_key_constraint_on: userId
+            name: sentBy
+            comment: null
+        array_relationships: []
+        insert_permissions: []
+        select_permissions: []
+        update_permissions: []
+        delete_permissions: []
+        event_triggers: []
+    query_templates: []

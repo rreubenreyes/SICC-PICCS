@@ -1,0 +1,1090 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+# conflict action
+enum conflict_action {
+  # ignore the insert on this row
+  ignore
+
+  # update the row with the given values
+  update
+}
+
+# columns and relationships of "game_data"
+type game_data {
+  cfid: String
+  display: String
+  id: Int!
+  keyword: String!
+  model: String!
+}
+
+# aggregated selection of "game_data"
+type game_data_aggregate {
+  aggregate: game_data_aggregate_fields
+  nodes: [game_data!]!
+}
+
+# aggregate fields of "game_data"
+type game_data_aggregate_fields {
+  avg: game_data_avg_fields
+  count: Int
+  max: game_data_max_fields
+  min: game_data_min_fields
+  sum: game_data_sum_fields
+}
+
+# input type for inserting array relation for remote table "game_data"
+input game_data_arr_rel_insert_input {
+  data: [game_data_insert_input!]!
+  on_conflict: game_data_on_conflict
+}
+
+# aggregate avg on columns
+type game_data_avg_fields {
+  id: Float
+}
+
+# Boolean expression to filter rows from the table "game_data". All fields are combined with a logical 'AND'.
+input game_data_bool_exp {
+  _and: [game_data_bool_exp]
+  _not: game_data_bool_exp
+  _or: [game_data_bool_exp]
+  cfid: text_comparison_exp
+  display: text_comparison_exp
+  id: integer_comparison_exp
+  keyword: text_comparison_exp
+  model: text_comparison_exp
+}
+
+# columns of table "game_data"
+enum game_data_column {
+  # column name
+  cfid
+
+  # column name
+  display
+
+  # column name
+  id
+
+  # column name
+  keyword
+
+  # column name
+  model
+}
+
+# unique or primary key constraints on table "game_data"
+enum game_data_constraint {
+  # unique or primary key constraint
+  game_data_pkey
+}
+
+# input type for incrementing integer columne in table "game_data"
+input game_data_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "game_data"
+input game_data_insert_input {
+  cfid: String
+  display: String
+  id: Int
+  keyword: String
+  model: String
+}
+
+# aggregate max on columns
+type game_data_max_fields {
+  cfid: String
+  display: String
+  id: Int
+  keyword: String
+  model: String
+}
+
+# aggregate min on columns
+type game_data_min_fields {
+  cfid: String
+  display: String
+  id: Int
+  keyword: String
+  model: String
+}
+
+# response of any mutation on the table "game_data"
+type game_data_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [game_data!]!
+}
+
+# input type for inserting object relation for remote table "game_data"
+input game_data_obj_rel_insert_input {
+  data: game_data_insert_input!
+  on_conflict: game_data_on_conflict
+}
+
+# on conflict condition type for table "game_data"
+input game_data_on_conflict {
+  # action when conflict occurs (deprecated)
+  action: conflict_action
+  constraint: game_data_constraint!
+  update_columns: [game_data_column!]
+}
+
+# ordering options when selecting data from "game_data"
+input game_data_order_by {
+  cfid: order_by
+  display: order_by
+  id: order_by
+  keyword: order_by
+  model: order_by
+}
+
+# input type for updating data in table "game_data"
+input game_data_set_input {
+  cfid: String
+  display: String
+  id: Int
+  keyword: String
+  model: String
+}
+
+# aggregate sum on columns
+type game_data_sum_fields {
+  id: Int
+}
+
+# columns and relationships of "games"
+type games {
+  createdBy: String
+  game_data_id: Int
+  id: String!
+
+  # An array relationship
+  messages(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): [messages!]!
+
+  # An aggregated array relationship
+  messages_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): messages_aggregate!
+  privateKey: String
+  status: String!
+  winner: String
+
+  # An object relationship
+  winnerRel: users
+}
+
+# aggregated selection of "games"
+type games_aggregate {
+  aggregate: games_aggregate_fields
+  nodes: [games!]!
+}
+
+# aggregate fields of "games"
+type games_aggregate_fields {
+  avg: games_avg_fields
+  count: Int
+  max: games_max_fields
+  min: games_min_fields
+  sum: games_sum_fields
+}
+
+# input type for inserting array relation for remote table "games"
+input games_arr_rel_insert_input {
+  data: [games_insert_input!]!
+  on_conflict: games_on_conflict
+}
+
+# aggregate avg on columns
+type games_avg_fields {
+  game_data_id: Float
+}
+
+# Boolean expression to filter rows from the table "games". All fields are combined with a logical 'AND'.
+input games_bool_exp {
+  _and: [games_bool_exp]
+  _not: games_bool_exp
+  _or: [games_bool_exp]
+  createdBy: text_comparison_exp
+  game_data_id: integer_comparison_exp
+  id: text_comparison_exp
+  messages: messages_bool_exp
+  privateKey: text_comparison_exp
+  status: text_comparison_exp
+  winner: text_comparison_exp
+  winnerRel: users_bool_exp
+}
+
+# columns of table "games"
+enum games_column {
+  # column name
+  createdBy
+
+  # column name
+  game_data_id
+
+  # column name
+  id
+
+  # column name
+  privateKey
+
+  # column name
+  status
+
+  # column name
+  winner
+}
+
+# unique or primary key constraints on table "games"
+enum games_constraint {
+  # unique or primary key constraint
+  games_pkey
+}
+
+# input type for incrementing integer columne in table "games"
+input games_inc_input {
+  game_data_id: Int
+}
+
+# input type for inserting data into table "games"
+input games_insert_input {
+  createdBy: String
+  game_data_id: Int
+  id: String
+  messages: messages_arr_rel_insert_input
+  privateKey: String
+  status: String
+  winner: String
+  winnerRel: users_obj_rel_insert_input
+}
+
+# aggregate max on columns
+type games_max_fields {
+  createdBy: String
+  game_data_id: Int
+  id: String
+  privateKey: String
+  status: String
+  winner: String
+}
+
+# aggregate min on columns
+type games_min_fields {
+  createdBy: String
+  game_data_id: Int
+  id: String
+  privateKey: String
+  status: String
+  winner: String
+}
+
+# response of any mutation on the table "games"
+type games_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [games!]!
+}
+
+# input type for inserting object relation for remote table "games"
+input games_obj_rel_insert_input {
+  data: games_insert_input!
+  on_conflict: games_on_conflict
+}
+
+# on conflict condition type for table "games"
+input games_on_conflict {
+  # action when conflict occurs (deprecated)
+  action: conflict_action
+  constraint: games_constraint!
+  update_columns: [games_column!]
+}
+
+# ordering options when selecting data from "games"
+input games_order_by {
+  createdBy: order_by
+  game_data_id: order_by
+  id: order_by
+  privateKey: order_by
+  status: order_by
+  winner: order_by
+  winnerRel: users_order_by
+}
+
+# input type for updating data in table "games"
+input games_set_input {
+  createdBy: String
+  game_data_id: Int
+  id: String
+  privateKey: String
+  status: String
+  winner: String
+}
+
+# aggregate sum on columns
+type games_sum_fields {
+  game_data_id: Int
+}
+
+# expression to compare columns of type integer. All fields are combined with logical 'AND'.
+input integer_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int]
+}
+
+# columns and relationships of "messages"
+type messages {
+  # An object relationship
+  game: games
+  gameId: String
+  id: String!
+  message: String!
+  sent: timetz!
+
+  # An object relationship
+  sentBy: users
+  userId: String
+}
+
+# aggregated selection of "messages"
+type messages_aggregate {
+  aggregate: messages_aggregate_fields
+  nodes: [messages!]!
+}
+
+# aggregate fields of "messages"
+type messages_aggregate_fields {
+  count: Int
+  max: messages_max_fields
+  min: messages_min_fields
+}
+
+# input type for inserting array relation for remote table "messages"
+input messages_arr_rel_insert_input {
+  data: [messages_insert_input!]!
+  on_conflict: messages_on_conflict
+}
+
+# Boolean expression to filter rows from the table "messages". All fields are combined with a logical 'AND'.
+input messages_bool_exp {
+  _and: [messages_bool_exp]
+  _not: messages_bool_exp
+  _or: [messages_bool_exp]
+  game: games_bool_exp
+  gameId: text_comparison_exp
+  id: text_comparison_exp
+  message: text_comparison_exp
+  sent: timetz_comparison_exp
+  sentBy: users_bool_exp
+  userId: text_comparison_exp
+}
+
+# columns of table "messages"
+enum messages_column {
+  # column name
+  gameId
+
+  # column name
+  id
+
+  # column name
+  message
+
+  # column name
+  sent
+
+  # column name
+  userId
+}
+
+# unique or primary key constraints on table "messages"
+enum messages_constraint {
+  # unique or primary key constraint
+  messages_pkey
+}
+
+# input type for inserting data into table "messages"
+input messages_insert_input {
+  game: games_obj_rel_insert_input
+  gameId: String
+  id: String
+  message: String
+  sent: timetz
+  sentBy: users_obj_rel_insert_input
+  userId: String
+}
+
+# aggregate max on columns
+type messages_max_fields {
+  gameId: String
+  id: String
+  message: String
+  sent: timetz
+  userId: String
+}
+
+# aggregate min on columns
+type messages_min_fields {
+  gameId: String
+  id: String
+  message: String
+  sent: timetz
+  userId: String
+}
+
+# response of any mutation on the table "messages"
+type messages_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [messages!]!
+}
+
+# input type for inserting object relation for remote table "messages"
+input messages_obj_rel_insert_input {
+  data: messages_insert_input!
+  on_conflict: messages_on_conflict
+}
+
+# on conflict condition type for table "messages"
+input messages_on_conflict {
+  # action when conflict occurs (deprecated)
+  action: conflict_action
+  constraint: messages_constraint!
+  update_columns: [messages_column!]
+}
+
+# ordering options when selecting data from "messages"
+input messages_order_by {
+  game: games_order_by
+  gameId: order_by
+  id: order_by
+  message: order_by
+  sent: order_by
+  sentBy: users_order_by
+  userId: order_by
+}
+
+# input type for updating data in table "messages"
+input messages_set_input {
+  gameId: String
+  id: String
+  message: String
+  sent: timetz
+  userId: String
+}
+
+# mutation root
+type mutation_root {
+  # delete data from the table: "game_data"
+  delete_game_data(
+    # filter the rows which have to be deleted
+    where: game_data_bool_exp!
+  ): game_data_mutation_response
+
+  # delete data from the table: "games"
+  delete_games(
+    # filter the rows which have to be deleted
+    where: games_bool_exp!
+  ): games_mutation_response
+
+  # delete data from the table: "messages"
+  delete_messages(
+    # filter the rows which have to be deleted
+    where: messages_bool_exp!
+  ): messages_mutation_response
+
+  # delete data from the table: "users"
+  delete_users(
+    # filter the rows which have to be deleted
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  # insert data into the table: "game_data"
+  insert_game_data(
+    # the rows to be inserted
+    objects: [game_data_insert_input!]!
+
+    # on conflict condition
+    on_conflict: game_data_on_conflict
+  ): game_data_mutation_response
+
+  # insert data into the table: "games"
+  insert_games(
+    # the rows to be inserted
+    objects: [games_insert_input!]!
+
+    # on conflict condition
+    on_conflict: games_on_conflict
+  ): games_mutation_response
+
+  # insert data into the table: "messages"
+  insert_messages(
+    # the rows to be inserted
+    objects: [messages_insert_input!]!
+
+    # on conflict condition
+    on_conflict: messages_on_conflict
+  ): messages_mutation_response
+
+  # insert data into the table: "users"
+  insert_users(
+    # the rows to be inserted
+    objects: [users_insert_input!]!
+
+    # on conflict condition
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  # update data of the table: "game_data"
+  update_game_data(
+    # increments the integer columns with given value of the filtered values
+    _inc: game_data_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: game_data_set_input
+
+    # filter the rows which have to be updated
+    where: game_data_bool_exp!
+  ): game_data_mutation_response
+
+  # update data of the table: "games"
+  update_games(
+    # increments the integer columns with given value of the filtered values
+    _inc: games_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: games_set_input
+
+    # filter the rows which have to be updated
+    where: games_bool_exp!
+  ): games_mutation_response
+
+  # update data of the table: "messages"
+  update_messages(
+    # sets the columns of the filtered rows to the given values
+    _set: messages_set_input
+
+    # filter the rows which have to be updated
+    where: messages_bool_exp!
+  ): messages_mutation_response
+
+  # update data of the table: "users"
+  update_users(
+    # sets the columns of the filtered rows to the given values
+    _set: users_set_input
+
+    # filter the rows which have to be updated
+    where: users_bool_exp!
+  ): users_mutation_response
+}
+
+# column ordering options
+enum order_by {
+  # in the ascending order, nulls last
+  asc
+
+  # in the ascending order, nulls first
+  asc_nulls_first
+
+  # in the descending order, nulls last
+  desc
+
+  # in the ascending order, nulls first
+  desc_nulls_first
+}
+
+# query root
+type query_root {
+  # fetch data from the table: "game_data"
+  game_data(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [game_data_order_by!]
+
+    # filter the rows returned
+    where: game_data_bool_exp
+  ): [game_data!]!
+
+  # fetch aggregated fields from the table: "game_data"
+  game_data_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [game_data_order_by!]
+
+    # filter the rows returned
+    where: game_data_bool_exp
+  ): game_data_aggregate!
+
+  # fetch data from the table: "game_data" using primary key columns
+  game_data_by_pk(id: Int!): game_data
+
+  # fetch data from the table: "games"
+  games(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [games_order_by!]
+
+    # filter the rows returned
+    where: games_bool_exp
+  ): [games!]!
+
+  # fetch aggregated fields from the table: "games"
+  games_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [games_order_by!]
+
+    # filter the rows returned
+    where: games_bool_exp
+  ): games_aggregate!
+
+  # fetch data from the table: "games" using primary key columns
+  games_by_pk(id: String!): games
+
+  # fetch data from the table: "messages"
+  messages(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): [messages!]!
+
+  # fetch aggregated fields from the table: "messages"
+  messages_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): messages_aggregate!
+
+  # fetch data from the table: "messages" using primary key columns
+  messages_by_pk(id: String!): messages
+
+  # fetch data from the table: "users"
+  users(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): [users!]!
+
+  # fetch aggregated fields from the table: "users"
+  users_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): users_aggregate!
+
+  # fetch data from the table: "users" using primary key columns
+  users_by_pk(id: String!): users
+}
+
+# subscription root
+type subscription_root {
+  # fetch data from the table: "game_data"
+  game_data(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [game_data_order_by!]
+
+    # filter the rows returned
+    where: game_data_bool_exp
+  ): [game_data!]!
+
+  # fetch aggregated fields from the table: "game_data"
+  game_data_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [game_data_order_by!]
+
+    # filter the rows returned
+    where: game_data_bool_exp
+  ): game_data_aggregate!
+
+  # fetch data from the table: "game_data" using primary key columns
+  game_data_by_pk(id: Int!): game_data
+
+  # fetch data from the table: "games"
+  games(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [games_order_by!]
+
+    # filter the rows returned
+    where: games_bool_exp
+  ): [games!]!
+
+  # fetch aggregated fields from the table: "games"
+  games_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [games_order_by!]
+
+    # filter the rows returned
+    where: games_bool_exp
+  ): games_aggregate!
+
+  # fetch data from the table: "games" using primary key columns
+  games_by_pk(id: String!): games
+
+  # fetch data from the table: "messages"
+  messages(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): [messages!]!
+
+  # fetch aggregated fields from the table: "messages"
+  messages_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): messages_aggregate!
+
+  # fetch data from the table: "messages" using primary key columns
+  messages_by_pk(id: String!): messages
+
+  # fetch data from the table: "users"
+  users(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): [users!]!
+
+  # fetch aggregated fields from the table: "users"
+  users_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): users_aggregate!
+
+  # fetch data from the table: "users" using primary key columns
+  users_by_pk(id: String!): users
+}
+
+# expression to compare columns of type text. All fields are combined with logical 'AND'.
+input text_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+scalar timetz
+
+# expression to compare columns of type timetz. All fields are combined with logical 'AND'.
+input timetz_comparison_exp {
+  _eq: timetz
+  _gt: timetz
+  _gte: timetz
+  _in: [timetz]
+  _is_null: Boolean
+  _lt: timetz
+  _lte: timetz
+  _neq: timetz
+  _nin: [timetz]
+}
+
+# columns and relationships of "users"
+type users {
+  # An object relationship
+  game: games
+  gameId: String
+  id: String!
+
+  # An array relationship
+  messages(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): [messages!]!
+
+  # An aggregated array relationship
+  messages_aggregate(
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [messages_order_by!]
+
+    # filter the rows returned
+    where: messages_bool_exp
+  ): messages_aggregate!
+  username: String
+}
+
+# aggregated selection of "users"
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
+}
+
+# aggregate fields of "users"
+type users_aggregate_fields {
+  count: Int
+  max: users_max_fields
+  min: users_min_fields
+}
+
+# input type for inserting array relation for remote table "users"
+input users_arr_rel_insert_input {
+  data: [users_insert_input!]!
+  on_conflict: users_on_conflict
+}
+
+# Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+input users_bool_exp {
+  _and: [users_bool_exp]
+  _not: users_bool_exp
+  _or: [users_bool_exp]
+  game: games_bool_exp
+  gameId: text_comparison_exp
+  id: text_comparison_exp
+  messages: messages_bool_exp
+  username: text_comparison_exp
+}
+
+# columns of table "users"
+enum users_column {
+  # column name
+  gameId
+
+  # column name
+  id
+
+  # column name
+  username
+}
+
+# unique or primary key constraints on table "users"
+enum users_constraint {
+  # unique or primary key constraint
+  users_pkey
+}
+
+# input type for inserting data into table "users"
+input users_insert_input {
+  game: games_obj_rel_insert_input
+  gameId: String
+  id: String
+  messages: messages_arr_rel_insert_input
+  username: String
+}
+
+# aggregate max on columns
+type users_max_fields {
+  gameId: String
+  id: String
+  username: String
+}
+
+# aggregate min on columns
+type users_min_fields {
+  gameId: String
+  id: String
+  username: String
+}
+
+# response of any mutation on the table "users"
+type users_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [users!]!
+}
+
+# input type for inserting object relation for remote table "users"
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+  on_conflict: users_on_conflict
+}
+
+# on conflict condition type for table "users"
+input users_on_conflict {
+  # action when conflict occurs (deprecated)
+  action: conflict_action
+  constraint: users_constraint!
+  update_columns: [users_column!]
+}
+
+# ordering options when selecting data from "users"
+input users_order_by {
+  game: games_order_by
+  gameId: order_by
+  id: order_by
+  username: order_by
+}
+
+# input type for updating data in table "users"
+input users_set_input {
+  gameId: String
+  id: String
+  username: String
+}
+
