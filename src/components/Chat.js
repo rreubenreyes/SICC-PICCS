@@ -74,6 +74,7 @@ export default class Chat extends PureComponent {
                 width: '87%',
               }}
             >
+              {/*test*/}
               <div
                 id="chat-window"
                 style={{
