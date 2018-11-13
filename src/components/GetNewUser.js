@@ -12,8 +12,9 @@ class GetNewUser extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    const { user } = this.props;
-    let username = user.username;
+    let {
+      user: { username },
+    } = this.props;
     let mode = 'create';
     if (!username) {
       if (username === null) {
