@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class JoinButton extends Component {
   constructor() {
     super();
     this.state = {
-      privateKeyValue: "",
+      privateKeyValue: '',
       formSubmitted: false,
-      privateGame: null
+      privateGame: null,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -39,22 +39,22 @@ class JoinButton extends Component {
         }
         `;
       if (!privateGame) {
-        joinClass = "disabled";
+        joinClass = 'disabled';
       }
       return (
         <React.Fragment>
           <div>
-            <label style={{ display: "block" }} htmlFor="privateKey">
+            <label style={{ display: 'block' }} htmlFor="privateKey">
               Enter key to join private game:
+              <input
+                style={{ borderRadius: '2px', border: '1px solid gray' }}
+                type="text"
+                name="privateKey"
+                id="privateKey"
+                value={this.state.privateKeyValue}
+                onChange={this.handleChange.bind(this)}
+              />
             </label>
-            <input
-              style={{ borderRadius: "2px", border: "1px solid gray" }}
-              type="text"
-              name="privateKey"
-              id="privateKey"
-              value={this.state.privateKeyValue}
-              onChange={this.handleChange.bind(this)}
-            />
           </div>
           <div>
             <button
@@ -68,18 +68,18 @@ class JoinButton extends Component {
             <Mutation mutation={UPDATE_USER}>
               {(updateUser, user = {}) => {
                 if (user.data) {
-                  history.push("/lobby", {
+                  history.push('/lobby', {
                     createdByUser: false,
                     userId,
                     gameId: privateGame.id,
-                    privateKey: privateKeyValue
+                    privateKey: privateKeyValue,
                   });
                 }
                 if (!user.loading && privateGame) {
                   updateUser({
                     variables: {
-                      privateGameId: privateGame.id
-                    }
+                      privateGameId: privateGame.id,
+                    },
                   });
                 }
                 return null;

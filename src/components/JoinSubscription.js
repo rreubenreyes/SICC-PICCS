@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import gql from "graphql-tag";
-import JoinRandom from "./JoinRandom";
-import JoinPrivate from "./JoinPrivate";
-import { Subscription } from "react-apollo";
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import JoinRandom from './JoinRandom';
+import JoinPrivate from './JoinPrivate';
+import { Subscription } from 'react-apollo';
 
 class JoinSubscription extends Component {
   render() {
     const { history, isRandomGame, userId } = this.props;
-    const eq_neq = isRandomGame ? "_eq" : "_neq";
+    const eq_neq = isRandomGame ? '_eq' : '_neq';
 
     const GAMES_SUBSCRIPTION = gql`
       subscription {
@@ -28,9 +28,6 @@ class JoinSubscription extends Component {
           const { games = [] } = data;
           if (loading || error || games.length === 0) {
             gameAvailable = false;
-          }
-          if (error) {
-            console.log(error);
           }
           if (isRandomGame) {
             return (

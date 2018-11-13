@@ -91,34 +91,34 @@ class GetNewUser extends Component {
                     htmlFor="username"
                   >
                     Enter username:
-                  </label>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <input
-                      type="text"
-                      name="username"
-                      id="username"
-                      value={this.state.value}
-                      onChange={this.handleChange}
+                    <div
                       style={{
-                        border: 'solid 1px gray',
-                        borderRadius: '3px',
-                        fontSize: '20px',
-                        flex: '1 1 auto',
-                        display: 'block',
-                        minWidth: '0',
-                        padding: '5px',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
                       }}
-                    />
-                    <button style={{ flex: '0 0 20px' }} action="submit">
-                      Save
-                    </button>
-                  </div>
+                    >
+                      <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        style={{
+                          border: 'solid 1px gray',
+                          borderRadius: '3px',
+                          fontSize: '20px',
+                          flex: '1 1 auto',
+                          display: 'block',
+                          minWidth: '0',
+                          padding: '5px',
+                        }}
+                      />
+                      <button style={{ flex: '0 0 20px' }} action="submit">
+                        Save
+                      </button>
+                    </div>
+                  </label>
                 </form>
               </div>
             )}

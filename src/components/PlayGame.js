@@ -42,7 +42,7 @@ class PlayGame extends Component {
       privateKey,
     } = this.props;
     if (games.length === 1) {
-      const currentGame = games[0];
+      const [currentGame] = games;
       if (currentGame.status === 'pending') {
         return (
           <GamePending
