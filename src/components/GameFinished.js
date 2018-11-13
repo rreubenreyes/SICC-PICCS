@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 class GameFinished extends Component {
-  constructor() {
-    super();
-    this.state = {
-      shouldGoToHome: false,
-    };
-  }
+  state = {
+    shouldGoToHome: false,
+  };
   componentDidMount() {
     setTimeout(
       function() {

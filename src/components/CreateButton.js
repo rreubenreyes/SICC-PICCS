@@ -5,12 +5,9 @@ import uuidv4 from 'uuid/v4';
 import { getNewPrivateKey } from '../helpers/helpers';
 
 class CreateContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      gameId: null,
-    };
-  }
+  state = {
+    gameId: null,
+  };
   componentDidMount() {
     const gameId = uuidv4();
     const { isRandomGame } = this.props;

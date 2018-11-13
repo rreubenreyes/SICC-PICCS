@@ -3,12 +3,9 @@ import GetNewUser from '../components/GetNewUser';
 import { Link } from 'react-router-dom';
 
 export default class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      user: {},
-    };
-  }
+  state = {
+    user: {},
+  };
   componentDidMount() {
     const userStr = localStorage.getItem('user');
     if (userStr) {
