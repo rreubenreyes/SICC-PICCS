@@ -81,6 +81,7 @@ class PlayGame extends Component {
         );
       }
     }
+    return null;
   };
   render() {
     const { userId, gameId } = this.props;
@@ -89,12 +90,17 @@ class PlayGame extends Component {
         {({ data = {} }) => {
           const { games = [] } = data;
           const { messages } = games[0] || { messages: [] };
-          return (
-            <React.Fragment>
-              {this.getGameState(data)}
-              <Chat messages={messages} gameId={gameId} userId={userId} />
-            </React.Fragment>
-          );
+          if (data) {
+            return (
+              <React.Fragment>
+                <div style={{ flex: '1 0 auto' }}>
+                  {this.getGameState(data)}
+                </div>
+                <Chat messages={messages} gameId={gameId} userId={userId} />
+              </React.Fragment>
+            );
+          }
+          return null;
         }}
       </Subscription>
     );

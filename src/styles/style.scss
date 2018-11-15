@@ -21,8 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: 85vh;
+  width: 100%;
 }
 
 .clarifai-upload {
@@ -108,4 +108,5 @@ body {
 
 .game-finished {
   font-size: 3rem;
+  text-align: center;
 }

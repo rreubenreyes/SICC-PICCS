@@ -59,20 +59,22 @@ export default class Chat extends PureComponent {
     const { gameId, userId, messages } = this.props;
     const { message, timezoneOffset } = this.state;
     const messageId = uuidv4();
+    console.log('Rendering Chat');
 
     return (
       <Mutation
         mutation={INSERT_MESSAGES}
         variables={{ messageId, gameId, userId, message }}
       >
-        {(updateMessages, { data }) => {
+        {updateMessages => {
           return (
             <div
               style={{
                 border: 'solid 1px #525252',
                 borderRadius: '3px',
                 width: '87%',
-                marginTop: '20px',
+                flexShrink: '0',
+                marginBottom: '20px',
               }}
             >
               <div

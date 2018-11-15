@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import gql from "graphql-tag";
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
 
-import { Mutation } from "react-apollo";
-import PlayGame from "./PlayGame";
+import { Mutation } from 'react-apollo';
 
 class Start extends Component {
   render() {
@@ -21,11 +20,8 @@ class Start extends Component {
     return (
       <Mutation mutation={START_GAME}>
         {(startGame, { loading, data }) => {
-          if (loading) {
+          if (loading || data) {
             return <button className="disabled">Loading...</button>;
-          }
-          if (data) {
-            return <PlayGame userId={userId} gameId={gameId} />;
           }
           return <button onClick={startGame}>Start Game</button>;
         }}
