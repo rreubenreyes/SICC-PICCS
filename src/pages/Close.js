@@ -1,7 +1,10 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 
+/*
+ * Force-finish all games that are pending or inProgress
+ */
 class Close extends Component {
   render() {
     const { history } = this.props;
@@ -24,7 +27,7 @@ class Close extends Component {
       <Mutation mutation={CLOSE_ALL_GAMES}>
         {(closeGames, { loading }) => {
           closeGames();
-          history.push("/");
+          history.push('/');
           return null;
         }}
       </Mutation>

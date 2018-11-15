@@ -7,6 +7,7 @@ export default class Home extends Component {
     user: {},
   };
   componentDidMount() {
+    // Get user info from local storage if it exists
     const userStr = localStorage.getItem('user');
     if (userStr) {
       const user = JSON.parse(userStr);

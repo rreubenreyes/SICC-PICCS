@@ -32,6 +32,13 @@ const GAMES_SUBSCRIPTION = gql`
   }
 `;
 
+/*
+ * Component that subscribes to the game and renders different
+ * components depending on the status of the game. This component
+ * gets unmounted when the game is finshed, GameFinished is rendered,
+ * history.push('/') is executed, and the home page is rendered.
+ */
+
 class PlayGame extends Component {
   getGameState = ({ games = [] }) => {
     const {
@@ -90,10 +97,10 @@ class PlayGame extends Component {
           return (
             <FlexWrapper>
               {() => (
-                <>
+                <React.Fragment>
                   {this.getGameState(data)}
                   <Chat messages={messages} gameId={gameId} userId={userId} />
-                </>
+                </React.Fragment>
               )}
             </FlexWrapper>
           );

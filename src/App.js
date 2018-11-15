@@ -32,6 +32,7 @@ class App extends Component {
 
   componentDidMount() {
     const userStr = localStorage.getItem('user');
+    // Only do animation if first-time user
     if (userStr) {
       this.setState({ loadingStateClassName: 'loaded' });
     } else {
