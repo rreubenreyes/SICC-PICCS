@@ -6,7 +6,6 @@ import Chat from './Chat';
 import GameInProgress from './GameInProgress';
 import GamePending from './GamePending';
 import GameFinished from './GameFinished';
-import FlexWrapper from '../components/FlexWrapper';
 
 const GAMES_SUBSCRIPTION = gql`
   subscription GamesSubscription($gameId: String!) {
@@ -64,15 +63,11 @@ class PlayGame extends Component {
       }
       if (currentGame.status === 'inProgress') {
         return (
-          <FlexWrapper>
-            {() => (
-              <GameInProgress
-                userId={userId}
-                gameId={gameId}
-                gameDataId={currentGame.game_data_id}
-              />
-            )}
-          </FlexWrapper>
+          <GameInProgress
+            userId={userId}
+            gameId={gameId}
+            gameDataId={currentGame.game_data_id}
+          />
         );
       }
       if (currentGame.status === 'finished') {
@@ -95,14 +90,10 @@ class PlayGame extends Component {
           const { games = [] } = data;
           const { messages } = games[0] || { messages: [] };
           return (
-            <FlexWrapper>
-              {() => (
-                <React.Fragment>
-                  {this.getGameState(data)}
-                  <Chat messages={messages} gameId={gameId} userId={userId} />
-                </React.Fragment>
-              )}
-            </FlexWrapper>
+            <React.Fragment>
+              {this.getGameState(data)}
+              <Chat messages={messages} gameId={gameId} userId={userId} />
+            </React.Fragment>
           );
         }}
       </Subscription>

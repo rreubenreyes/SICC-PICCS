@@ -72,6 +72,7 @@ export default class Chat extends PureComponent {
                 border: 'solid 1px #525252',
                 borderRadius: '3px',
                 width: '87%',
+                marginTop: '20px',
               }}
             >
               <div
