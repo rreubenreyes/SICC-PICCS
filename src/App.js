@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import NoMatch from "./pages/404";
-import Game from "./pages/Game";
-import Close from "./pages/Close";
-import Create from "./pages/Create";
-import Join from "./pages/Join";
-import logo from "./static/svgs/logo.svg";
-import "./styles/style.scss";
+import Header from './components/Header';
+import Home from './pages/Home';
+import NoMatch from './pages/404';
+import Game from './pages/Game';
+import Close from './pages/Close';
+import Create from './pages/Create';
+import Join from './pages/Join';
+import logo from './static/svgs/logo.svg';
+import './styles/style.scss';
 
-const LOADING_PHRASE = "Welcome to";
+const LOADING_PHRASE = 'Welcome to';
 
 function* typewriter() {
   for (let letter of LOADING_PHRASE) {
@@ -22,22 +22,22 @@ function* typewriter() {
 class App extends Component {
   state = {
     typewriterGenerator: typewriter(),
-    logoClassName: "",
-    loadingStateClassName: "",
+    logoClassName: '',
+    loadingStateClassName: '',
     loadingPhrase: {
-      value: "",
-      done: false
-    }
+      value: '',
+      done: false,
+    },
   };
 
   componentDidMount = () => {
-    const userStr = localStorage.getItem("user");
+    const userStr = localStorage.getItem('user');
     if (userStr) {
-      this.setState({ loadingStateClassName: "loaded" });
+      this.setState({ loadingStateClassName: 'loaded' });
     } else {
       setTimeout(() => {
         this.setState({
-          loadingStateClassName: "loaded"
+          loadingStateClassName: 'loaded',
         });
       }, 3000);
     }
@@ -48,24 +48,24 @@ class App extends Component {
       loadingStateClassName,
       typewriterGenerator,
       loadingPhrase,
-      logoClassName
+      logoClassName,
     } = this.state;
     const nextLetter = typewriterGenerator.next().value;
     if (nextLetter) {
       setTimeout(() => {
         this.setState({
           loadingPhrase: {
-            value: loadingPhrase.value + nextLetter
-          }
+            value: loadingPhrase.value + nextLetter,
+          },
         });
       }, 150);
     } else {
       setTimeout(() => {
         this.setState({
           loadingPhrase: {
-            value: ""
+            value: '',
           },
-          logoClassName: "show"
+          logoClassName: 'show',
         });
       }, 650);
     }
