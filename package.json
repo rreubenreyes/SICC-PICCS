@@ -25,9 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:hasura": "docker-compose up -d",
-    "start:lambda": "netlify-lambda serve src/functions",
     "build": "react-scripts build",
-    "build:lambda": "netlify-lambda build src/functions",
     "docker-compose": "./node_modules/docker-compose up -d",
     "migrate": "node scripts/migrate.js",
     "test": "react-scripts test",
