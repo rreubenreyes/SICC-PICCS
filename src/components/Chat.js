@@ -111,12 +111,17 @@ export default class Chat extends PureComponent {
                   );
                 })}
               </div>
-              <div
+              <form
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
                   width: '100%',
                   borderTop: 'solid 1px gray',
+                }}
+                onSubmit={e => {
+                  e.preventDefault();
+                  this.handleSubmit();
+                  updateMessages();
                 }}
               >
                 <input
@@ -142,14 +147,10 @@ export default class Chat extends PureComponent {
                     justifySelf: 'flex-end',
                     padding: '.5rem 1rem',
                   }}
-                  onClick={() => {
-                    this.handleSubmit();
-                    updateMessages();
-                  }}
                 >
                   Send
                 </button>
-              </div>
+              </form>
             </div>
           );
         }}
