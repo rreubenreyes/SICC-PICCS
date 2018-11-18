@@ -1,5 +1,9 @@
 @import 'partials/index';
 
+/*
+* The height of the header plus the flex container must add up to 100vh.
+* The purpose of this is to keep Chat stuck to the bottom of the screen.
+*/
 .header {
   background-color: $color-grey-light-2;
   display: flex;

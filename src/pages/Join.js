@@ -1,16 +1,17 @@
-import React, { Component } from "react";
-import JoinSubscription from "../components/JoinSubscription";
+import React, { Component } from 'react';
+import JoinSubscription from '../components/JoinSubscription';
+import FlexWrapper from '../components/FlexWrapper';
 
 class Join extends Component {
   render() {
     const {
       history,
       location: {
-        state: { user }
-      }
+        state: { user },
+      },
     } = this.props;
     return (
-      <div style={{ textAlign: "center" }}>
+      <FlexWrapper>
         <JoinSubscription
           history={history}
           isRandomGame={true}
@@ -21,7 +22,7 @@ class Join extends Component {
           isRandomGame={false}
           userId={user.userId}
         />
-      </div>
+      </FlexWrapper>
     );
   }
 }

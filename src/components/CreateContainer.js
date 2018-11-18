@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import uuidv4 from 'uuid/v4';
 import { getNewPrivateKey } from '../helpers/helpers';
+import './CreateContainer.scss';
 
 class CreateContainer extends Component {
   state = {
@@ -71,7 +72,7 @@ class CreateContainer extends Component {
               }
               return (
                 <button
-                  className="button--home__create"
+                  className="CreateContainer__button"
                   onClick={() => {
                     createGame();
                   }}

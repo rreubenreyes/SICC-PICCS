@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GetNewUser from '../components/GetNewUser';
+import FlexWrapper from '../components/FlexWrapper';
 import { Link } from 'react-router-dom';
 
 export default class Home extends Component {
@@ -21,7 +22,7 @@ export default class Home extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="home">
+      <FlexWrapper>
         {user.userId && user.username && (
           <div>
             <p style={{ textAlign: 'center', marginBottom: '0px' }}>{`Hello, ${
@@ -71,7 +72,7 @@ export default class Home extends Component {
         ) : (
           <GetNewUser updateUser={this.updateUser.bind(this)} user={user} />
         )}
-      </div>
+      </FlexWrapper>
     );
   }
 }

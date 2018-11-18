@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import CreateButton from '../components/CreateButton';
+import CreateContainer from '../components/CreateContainer';
+import FlexWrapper from '../components/FlexWrapper';
 
 class Create extends Component {
   render() {
@@ -10,18 +11,18 @@ class Create extends Component {
       },
     } = this.props;
     return (
-      <div style={{ textAlign: 'center' }}>
-        <CreateButton
+      <FlexWrapper>
+        <CreateContainer
           history={history}
           isRandomGame={true}
           userId={user.userId}
         />
-        <CreateButton
+        <CreateContainer
           history={history}
           isRandomGame={false}
           userId={user.userId}
         />
-      </div>
+      </FlexWrapper>
     );
   }
 }

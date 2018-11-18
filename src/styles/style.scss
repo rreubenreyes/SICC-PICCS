@@ -17,11 +17,16 @@ body {
   overflow-x: hidden;
 }
 
+/*
+* The height of the flex container plus header must add up to 100vh.
+* The purpose of this is to keep Chat stuck to the bottom of the screen.
+*/
 .flex {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 85vh;
+  padding-top: 10px;
   width: 100%;
 }
 
