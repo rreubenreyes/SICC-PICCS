@@ -39,21 +39,28 @@ export default class Home extends Component {
             </button>
           </div>
         )}
-        <p
-          style={{
-            padding: '0 1rem',
-            textAlign: 'center',
-          }}
-        >
-          This app was developed in a small incubator inside Microsoft.
-          <span role="img" aria-label="nonsense emojis">
-            🥑 😉
-          </span>
-          <br />
-          <sub>
-            <em>#JAMstackHackathon2018</em>
-          </sub>
-        </p>
+        {!user.username && !user.userId && (
+          <React.Fragment>
+            <p
+              style={{
+                padding: '0 1rem',
+                textAlign: 'center',
+                fontWeight: 'bold',
+              }}
+            >
+              Blazing-fast, machine-learning, real-time online scavenger hunt
+            </p>
+            <p
+              style={{
+                padding: '0 1rem',
+                textAlign: 'center',
+              }}
+            >
+              Play in a private game with your friends or a random game with
+              random strangers across the world!
+            </p>
+          </React.Fragment>
+        )}
         {user.userId && user.username ? (
           <div style={{ textAlign: 'center' }}>
             <Link
