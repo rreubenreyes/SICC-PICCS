@@ -92,12 +92,10 @@ class PlayGame extends Component {
           const { messages } = games[0] || { messages: [] };
           if (data) {
             return (
-              <React.Fragment>
-                <div style={{ flex: '1 0 auto' }}>
-                  {this.getGameState(data)}
-                </div>
+              <div className="game">
+                <div className="game--controls">{this.getGameState(data)}</div>
                 <Chat messages={messages} gameId={gameId} userId={userId} />
-              </React.Fragment>
+              </div>
             );
           }
           return null;

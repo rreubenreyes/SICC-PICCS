@@ -1,0 +1,27 @@
+.home {
+  display: grid;
+  position: relative;
+  height: $main-height;
+  width: 100vw;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr) 2fr;
+  grid-gap: 0.5rem;
+
+  &--games {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: inherit;
+  }
+}
+
+.user-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}

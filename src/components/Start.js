@@ -21,9 +21,15 @@ class Start extends Component {
       <Mutation mutation={START_GAME}>
         {(startGame, { loading, data }) => {
           if (loading || data) {
-            return <button className="disabled">Loading...</button>;
+            return (
+              <button className="button--small disabled">Loading...</button>
+            );
           }
-          return <button onClick={startGame}>Start Game</button>;
+          return (
+            <button className="button--small" onClick={startGame}>
+              Start Game
+            </button>
+          );
         }}
       </Mutation>
     );
