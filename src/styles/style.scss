@@ -1,6 +1,7 @@
 @import 'partials/normalize'; /* DON'T TOUCH THIS */
 
 @import 'partials/index';
+@import 'pages/index';
 @import 'components/index';
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
@@ -25,9 +26,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 85vh;
-  padding-top: 10px;
+  height: $main-height;
   width: 100%;
+}
+
+.grid {
+  display: grid;
 }
 
 .clarifai-upload {
@@ -46,6 +50,7 @@ body {
 #root,
 .app {
   height: 100vh;
+  max-height: 100vh;
   width: 100vw;
   overflow-x: hidden;
 }
