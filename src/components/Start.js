@@ -27,7 +27,7 @@ class Start extends Component {
           }
           return (
             <button className="button--small" onClick={startGame}>
-              Start Game
+              Start
             </button>
           );
         }}
