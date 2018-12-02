@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Header from './components/Header';
 import Home from './pages/Home';
 import NoMatch from './pages/404';
 import Game from './pages/Game';
@@ -15,7 +14,6 @@ class App extends Component {
     return (
       <React.Fragment>
         <div className="app">
-          <Header />
           <Router>
             <Switch>
               <Route exact path="/" component={Home} />

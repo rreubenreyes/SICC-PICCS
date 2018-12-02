@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CreateContainer from '../components/CreateContainer';
 import FlexWrapper from '../components/FlexWrapper';
+import Header from '../components/Header';
 
 class Create extends Component {
   render() {
@@ -12,6 +13,7 @@ class Create extends Component {
     } = this.props;
     return (
       <FlexWrapper>
+        <Header />
         <CreateContainer
           history={history}
           isRandomGame={true}
