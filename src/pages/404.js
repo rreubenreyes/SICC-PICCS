@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const NoMatch = () => {
-  return <div>Oops! This page doesn't ex</div>
-}
+  return <div>Oops! This page doesn't exist</div>;
+};
 
-export default NoMatch
+export default NoMatch;
