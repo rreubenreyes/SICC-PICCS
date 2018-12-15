@@ -2,7 +2,7 @@
 
 Picture scavenger hunt game built for the mobile web. Join a game, take a photo of your hunted item, profit!
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 ## Current Status
 
@@ -30,8 +30,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars0.githubusercontent.com/u/25578179?v=4" width="100px;"/><br /><sub><b>Reuben Reyes</b></sub>](http://reubenreyes.com)<br />[🐛](https://github.com/rreubenreyes/SICC-PICCS/issues?q=author%3Arreubenreyes "Bug reports") [💻](https://github.com/rreubenreyes/SICC-PICCS/commits?author=rreubenreyes "Code") [🎨](#design-rreubenreyes "Design") [📖](https://github.com/rreubenreyes/SICC-PICCS/commits?author=rreubenreyes "Documentation") [🤔](#ideas-rreubenreyes "Ideas, Planning, & Feedback") [👀](#review-rreubenreyes "Reviewed Pull Requests") [🔧](#tool-rreubenreyes "Tools") | [<img src="https://avatars0.githubusercontent.com/u/29493001?v=4" width="100px;"/><br /><sub><b>Austin Tackaberry</b></sub>](https://austintackaberry.co)<br />[💬](#question-austintackaberry "Answering Questions") [🐛](https://github.com/rreubenreyes/SICC-PICCS/issues?q=author%3Aaustintackaberry "Bug reports") [💻](https://github.com/rreubenreyes/SICC-PICCS/commits?author=austintackaberry "Code") [🎨](#design-austintackaberry "Design") [🤔](#ideas-austintackaberry "Ideas, Planning, & Feedback") [🚇](#infra-austintackaberry "Infrastructure (Hosting, Build-Tools, etc)") [👀](#review-austintackaberry "Reviewed Pull Requests") [🔧](#tool-austintackaberry "Tools") |
-| :---: | :---: |
+| [<img src="https://avatars0.githubusercontent.com/u/25578179?v=4" width="100px;"/><br /><sub><b>Reuben Reyes</b></sub>](http://reubenreyes.com)<br />[🐛](https://github.com/rreubenreyes/SICC-PICCS/issues?q=author%3Arreubenreyes "Bug reports") [💻](https://github.com/rreubenreyes/SICC-PICCS/commits?author=rreubenreyes "Code") [🎨](#design-rreubenreyes "Design") [📖](https://github.com/rreubenreyes/SICC-PICCS/commits?author=rreubenreyes "Documentation") [🤔](#ideas-rreubenreyes "Ideas, Planning, & Feedback") [👀](#review-rreubenreyes "Reviewed Pull Requests") [🔧](#tool-rreubenreyes "Tools") | [<img src="https://avatars0.githubusercontent.com/u/29493001?v=4" width="100px;"/><br /><sub><b>Austin Tackaberry</b></sub>](https://austintackaberry.co)<br />[💬](#question-austintackaberry "Answering Questions") [🐛](https://github.com/rreubenreyes/SICC-PICCS/issues?q=author%3Aaustintackaberry "Bug reports") [💻](https://github.com/rreubenreyes/SICC-PICCS/commits?author=austintackaberry "Code") [🎨](#design-austintackaberry "Design") [🤔](#ideas-austintackaberry "Ideas, Planning, & Feedback") [🚇](#infra-austintackaberry "Infrastructure (Hosting, Build-Tools, etc)") [👀](#review-austintackaberry "Reviewed Pull Requests") [🔧](#tool-austintackaberry "Tools") | [<img src="https://avatars2.githubusercontent.com/u/12701155?v=4" width="100px;"/><br /><sub><b>Vince T.</b></sub>](http://www.vincenttamsf.com)<br />[💻](https://github.com/rreubenreyes/SICC-PICCS/commits?author=vtam2012 "Code") [🤔](#ideas-vtam2012 "Ideas, Planning, & Feedback") |
+| :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
