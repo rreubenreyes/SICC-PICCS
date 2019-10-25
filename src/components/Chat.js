@@ -22,6 +22,14 @@ const INSERT_MESSAGES = gql`
 `;
 
 export default class Chat extends PureComponent {
+  /**
+   * TODO: refactor from PureComponent
+   * PureComponent fixes the chat updating on fixed intervals
+   * however it still wants to update on internal state change
+   * we need to make it so that it only updates when the GraphQL
+   * subscription receives a new message. the subscription is
+   * external to this component, and belongs to PlayGame.
+   */
   static propTypes = {
     gameId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
@@ -33,6 +41,7 @@ export default class Chat extends PureComponent {
       message: '',
       timezoneOffset: new Date().getTimezoneOffset() / 60,
     };
+    this.chatMessages = React.createRef();
   }
 
   handleChange = e => {
@@ -48,18 +57,19 @@ export default class Chat extends PureComponent {
   };
 
   componentDidMount = () => {
-    this.chatWindow = document.querySelector('#chat-window');
+    const chat = this.chatMessages.current;
+    chat.scrollTop = chat.scrollHeight;
   };
 
   componentDidUpdate = () => {
-    this.chatWindow.scrollTop = this.chatWindow.scrollHeight;
+    const chat = this.chatMessages.current;
+    chat.scrollTop = chat.scrollHeight;
   };
 
   render() {
     const { gameId, userId, messages } = this.props;
     const { message, timezoneOffset } = this.state;
     const messageId = uuidv4();
-    console.log('Rendering Chat');
 
     return (
       <Mutation
@@ -68,25 +78,8 @@ export default class Chat extends PureComponent {
       >
         {updateMessages => {
           return (
-            <div
-              style={{
-                border: 'solid 1px #525252',
-                borderRadius: '3px',
-                width: '87%',
-                flexShrink: '0',
-                marginBottom: '20px',
-              }}
-            >
-              <div
-                id="chat-window"
-                style={{
-                  height: '30vh',
-                  width: '100%',
-                  boxSizing: 'border-box',
-                  padding: '.25rem',
-                  overflowY: 'scroll',
-                }}
-              >
+            <div className="game--chat">
+              <div className="chat--messages" ref={this.chatMessages}>
                 {messages.map(m => {
                   const {
                     sentBy: { username },
@@ -112,12 +105,7 @@ export default class Chat extends PureComponent {
                 })}
               </div>
               <form
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  width: '100%',
-                  borderTop: 'solid 1px gray',
-                }}
+                className="chat--form"
                 onSubmit={e => {
                   e.preventDefault();
                   this.handleSubmit();
@@ -125,28 +113,16 @@ export default class Chat extends PureComponent {
                 }}
               >
                 <input
-                  name="chat"
-                  style={{
-                    paddingLeft: '.5rem',
-                    border: 'none',
-                    minWidth: '0',
-                    flex: '1 1 200px',
-                  }}
+                  name="chat--input"
                   type="text"
                   placeholder="Enter your message... "
                   value={message}
                   onChange={e => this.handleChange(e)}
                 />
                 <button
+                  className="button--small inline"
                   type="submit"
                   value="Send"
-                  style={{
-                    fontSize: '.75rem',
-                    flex: '0 0 30px',
-                    marginRight: '5px',
-                    justifySelf: 'flex-end',
-                    padding: '.5rem 1rem',
-                  }}
                 >
                   Send
                 </button>

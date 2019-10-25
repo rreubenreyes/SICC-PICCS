@@ -2,34 +2,65 @@ import React, { Component } from 'react';
 import NumberPlayers from './NumberPlayers';
 import GameDataQuery from './GameDataQuery';
 import Start from './Start';
+import PrivateKeyModal from './PrivateKeyModal';
 
 class GamePending extends Component {
+  state = {
+    showPrivateKeyModal: false,
+  };
+  handleShowModal = shouldShow => {
+    this.setState({
+      showPrivateKeyModal: shouldShow,
+    });
+  };
   render() {
-    const { gameId, createdByUser, userId, privateKey } = this.props;
-
+    const {
+      gameId,
+      createdByUser,
+      userId,
+      privateKey,
+      isRandomGame,
+    } = this.props;
+    const { showPrivateKeyModal } = this.state;
     return (
-      <div style={{ textAlign: 'center' }}>
-        {createdByUser && (
-          <GameDataQuery>
-            {gameDataId => (
-              <Start userId={userId} gameId={gameId} gameDataId={gameDataId} />
-            )}
-          </GameDataQuery>
-        )}
-        <h3>
-          {createdByUser
-            ? 'Waiting for you to start the game.'
-            : 'Waiting for the game to start.'}
-        </h3>
-        {privateKey && (
-          <React.Fragment>
-            <h3>{`Share the code below with your friends!`}</h3>
-            <h1 style={{ fontSize: '56px' }}>{`${privateKey}`}</h1>
-          </React.Fragment>
-        )}
-        <div className="beach-ball" />
-        <NumberPlayers gameId={gameId} />
-      </div>
+      <>
+        <div className="game--info">
+          <div className="game--status">
+            {isRandomGame ? 'Game Lobby' : 'Private Game'}
+          </div>
+          <NumberPlayers gameId={gameId} />
+        </div>
+        <div className="game--room-actions">
+          {privateKey && (
+            <>
+              <button
+                className="button--small room-actions--invite button--info"
+                onClick={() => this.handleShowModal(true)}
+              >
+                Invite code
+              </button>
+              <PrivateKeyModal
+                show={showPrivateKeyModal}
+                toggle={this.handleShowModal}
+                privateKey={privateKey}
+              />
+            </>
+          )}
+          {createdByUser ? (
+            <GameDataQuery>
+              {gameDataId => (
+                <Start
+                  userId={userId}
+                  gameId={gameId}
+                  gameDataId={gameDataId}
+                />
+              )}
+            </GameDataQuery>
+          ) : (
+            <button className="button--small disabled">Waiting...</button>
+          )}
+        </div>
+      </>
     );
   }
 }

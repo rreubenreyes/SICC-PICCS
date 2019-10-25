@@ -1,0 +1,95 @@
+.game {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10% 90%;
+  grid-template-areas:
+    'controls'
+    'chat';
+  &--controls {
+    background-color: $color-grey-light-2;
+    grid-area: controls;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: $box-shadow;
+  }
+  &--status {
+    font-weight: 700;
+    margin-left: 0.5rem;
+  }
+  &--player-count {
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+  }
+  &--chat {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 85% 15%;
+  }
+  &--private-key-modal {
+    &__active {
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: $color-overlay;
+      .modal {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 80%;
+        width: 80%;
+        border-radius: 15px;
+        background-color: $color-white;
+        box-shadow: $box-shadow;
+        &--key {
+          color: $color-white;
+          background-color: $color-black;
+          padding: $default-padding;
+          padding-right: calc(0.75rem - 10px);
+          letter-spacing: 10px;
+        }
+        &--button__close {
+          flex-grow: 0;
+        }
+      }
+    }
+    &__inactive {
+      display: none;
+    }
+  }
+  &--room-actions {
+    display: flex;
+    .room-actions--invite {
+      flex-grow: 1;
+      margin-right: 0;
+    }
+  }
+}
+.chat {
+  &--form {
+    background-color: $color-grey-light-2;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    input {
+      box-shadow: $box-shadow;
+      border-radius: 10px;
+      border: none;
+      flex-basis: 85%;
+      margin: 0.5rem 0 0.5rem 0.5rem;
+      padding: 0.75rem;
+    }
+  }
+  &--messages {
+    padding: 0.5rem;
+    overflow-y: scroll;
+  }
+}

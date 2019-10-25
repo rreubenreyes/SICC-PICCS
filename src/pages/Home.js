@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import GetNewUser from '../components/GetNewUser';
-import FlexWrapper from '../components/FlexWrapper';
 import { Link } from 'react-router-dom';
+
+import FlexWrapper from '../components/FlexWrapper';
+import Header from '../components/Header';
 
 export default class Home extends Component {
   state = {
@@ -23,62 +25,60 @@ export default class Home extends Component {
     const { user } = this.state;
     return (
       <FlexWrapper>
-        {user.userId && user.username && (
-          <div>
-            <p style={{ textAlign: 'center', marginBottom: '0px' }}>{`Hello, ${
-              user.username
-            }!`}</p>
-            <button
-              onClick={() =>
-                this.setState({
-                  user: { userId: user.userId, username: null },
-                })
-              }
-            >
-              Edit Name
-            </button>
+        <Header />
+        <div className="home">
+          <div className="home--user-info">
+            <div className="user-info">
+              {user.userId && user.username && (
+                <>
+                  <p>{`Hello, ${user.username}!`}</p>
+                  <button
+                    className="button--small"
+                    onClick={() =>
+                      this.setState({
+                        user: { userId: user.userId, username: null },
+                      })
+                    }
+                  >
+                    Edit Name
+                  </button>
+                </>
+              )}
+              {/* show intro text when user is not initialized
+               * TODO: change this to a new route
+               */}
+              {!user.username && !user.userId && (
+                <p>
+                  <span>
+                    Blazing-fast, machine-learning, real-time online scavenger
+                    hunt
+                  </span>
+                  <br />
+                  <span>
+                    Play in a private game with your friends or a random game
+                    with random strangers across the world!
+                  </span>
+                </p>
+              )}
+            </div>
           </div>
-        )}
-        {!user.username && !user.userId && (
-          <React.Fragment>
-            <p
-              style={{
-                padding: '0 1rem',
-                textAlign: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              Blazing-fast, machine-learning, real-time online scavenger hunt
-            </p>
-            <p
-              style={{
-                padding: '0 1rem',
-                textAlign: 'center',
-              }}
-            >
-              Play in a private game with your friends or a random game with
-              random strangers across the world!
-            </p>
-          </React.Fragment>
-        )}
-        {user.userId && user.username ? (
-          <div style={{ textAlign: 'center' }}>
-            <Link
-              style={{ display: 'block' }}
-              to={{ pathname: '/create', state: { user } }}
-            >
-              Create a game
-            </Link>
-            <Link
-              style={{ display: 'block' }}
-              to={{ pathname: '/join', state: { user } }}
-            >
-              Join a game
-            </Link>
-          </div>
-        ) : (
-          <GetNewUser updateUser={this.updateUser.bind(this)} user={user} />
-        )}
+          {user.userId && user.username ? (
+            <div className="home--games">
+              <Link to={{ pathname: '/create', state: { user } }}>
+                <button className="button--full-width" type="button">
+                  Create a game
+                </button>
+              </Link>
+              <Link to={{ pathname: '/join', state: { user } }}>
+                <button className="button--full-width" type="button">
+                  Join a game
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <GetNewUser updateUser={this.updateUser.bind(this)} user={user} />
+          )}
+        </div>
       </FlexWrapper>
     );
   }

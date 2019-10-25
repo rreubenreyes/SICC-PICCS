@@ -1,19 +1,34 @@
-@import 'partials/index';
-
-button,
-a {
+button {
   background-color: $color-primary;
   color: $color-grey-light-1;
-
+  box-shadow: $box-shadow;
   border-radius: 15px;
-  padding: 1rem;
-  margin: 0.5rem;
   border: none;
+  margin: 0.5rem;
+  padding: 1rem;
 
-  text-transform: uppercase;
-  text-decoration: none;
   cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
 
+  &.inline {
+    display: inline;
+    margin: 0 0.5rem;
+  }
+  &.button--info {
+    background-color: $color-tertiary-dark;
+  }
+
+  &.button--full-width {
+    width: $button-width;
+    flex-basis: $button-width;
+    align-self: center;
+  }
+  &.button--small {
+    border-radius: 0.75 * 15px;
+    font-size: 0.75rem;
+    padding: $default-padding;
+  }
   &.disabled {
     background-color: $color-grey-light-1;
     color: #bbb;
